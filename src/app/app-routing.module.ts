@@ -5,24 +5,24 @@ import { NoPageFoundComponent } from './modules/core/no-page-found/no-page-found
 
 const routes: Routes = [
   {
-    path:'', redirectTo:'app/login', pathMatch:'full'
-  },
- 
-  {
-    path:'app', 
-    loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule) 
+    path:'', redirectTo:'app/home', pathMatch:'full'
   },
   {
     path:'app', 
     component:CoreComponent,
     children: [
       { 
-        path:'dashboard',
+        path:'home',
         loadChildren: () => import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule) 
 
       }
     ]   
   },
+  {
+    path:'app', 
+    loadChildren: () => import('./modules/login/login.module').then(m => m.LoginModule) 
+  },
+
   {
     path:'**', component:NoPageFoundComponent
   },

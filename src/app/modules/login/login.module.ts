@@ -8,10 +8,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ButtonModule } from 'primeng/button';
 import { ToastModule } from 'primeng/toast';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    SignInComponent
+    SignInComponent,
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,9 @@ import { ToastModule } from 'primeng/toast';
     InputTextModule,
     PasswordModule,
     ButtonModule,
-    ToastModule
+    ToastModule,
+    InputNumberModule,
+    SharedModule
   ]
 })
 export class LoginModule { }

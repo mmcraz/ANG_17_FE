@@ -1,16 +1,22 @@
-<div class="grid h-full">
-  <div class="col-7 ad">
 
+<app-header></app-header>
+<div class="grid h-full m-0">
+  <div class="col-12 md:col-7 flex align-items-center justify-content-center">
+      <h1>Print your design</h1>
+   
+      <h4 class="block">mmcraz</h4>
   </div>
-  <div class="col-5 h-full p-8" style=" 
-  background: #fff;
+  <div class="col-12 md:col-5 h-full p-8" style=" 
+  background: rgba(0,0,0,.8);
   place-items: center;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!signUp">
 
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!signUp">
+      <h3>mmcraz</h3>
       <div class="field">
         <label for="username">Email</label>
         <input type="text" class="block w-full" pInputText id="username" formControlName="userName">
@@ -50,23 +56,82 @@
         <input type="text"
           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
           pInputText id="email" formControlName="email">
+          <div *ngIf="f['email'].errors && (f['email'].dirty || f['email'].touched)" class="error-text">
+            <!-- <div *ngIf="f['email'].errors.['required']">Email is required</div>
+            <div *ngIf="f['email'].errors.['email']">Invalid email format</div> -->
+            Invalid Email
+          </div>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          pInputText id="password" formControlName="password">
 
       </div>
       <div class="field">
-        <label for="phone">Phone</label>
+        <label for="cpassword">Confirm Password</label>
         <input type="text"
           class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
-          pInputText id="phone" formControlName="phone">
+          pInputText id="cpassword" formControlName="confirmPassword">
+        
 
+      </div>
+      <!-- <div class="field">
+        <label for="phone">Address 1</label>
+        <input type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          pInputText id="phone" formControlName="addressOne">
+      </div>
+      <div class="field">
+        <label for="phone">Address 2</label>
+        <input type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          pInputText id="phone" formControlName="addressTwo">
+      </div>
+      <div class="field">
+        <label for="phone">City</label>
+        <input type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          pInputText id="phone" formControlName="city">
+      </div>
+      <div class="field">
+        <label for="phone">State</label>
+        <input type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          pInputText id="phone" formControlName="state">
+      </div>
+      <div class="field">
+        <label for="phone">Country</label>
+        <input type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          pInputText id="phone" formControlName="country">
+      </div>
+      <div class="field">
+        <label for="phone">PIN Code.</label>
+        <input type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          pInputText id="phone" formControlName="pin">
+      </div> -->
+      <div class="field">
+        <label for="phone">Contact</label>
+        <input type="tel"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          id="phone"  formControlName="phone">
+          <div *ngIf="f['phone'].errors && (f['phone'].dirty || f['phone'].touched)" class="error-text">
+            <!-- <div *ngIf="f['email'].errors.['required']">Email is required</div>
+            <div *ngIf="f['email'].errors.['email']">Invalid email format</div> -->
+            Invalid contact number
+          </div>
       </div>
 
 
-      <button pButton pRipple type="submit" [disabled]="signUpForm.invalid" class="p-button-success">SignUp</button> <a
-        href="javascript:void(0)" (click)="signUpFn()" class="ml-5">Login</a>
+      <button pButton pRipple type="submit" [disabled]="signUpForm.invalid" class="p-button-success p-button">SignUp</button> 
+      <a href="javascript:void(0)" (click)="signUpFn()" class="ml-5">Login</a>
     </form>
 
   </div>
 
 </div>
-
+<app-footer></app-footer>
 <p-toast></p-toast>

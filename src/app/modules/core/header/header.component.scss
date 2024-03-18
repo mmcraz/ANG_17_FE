@@ -1,5 +1,7 @@
 .header {
-    background-color: #333;
+  background: rgba(0, 0, 0, .8);
+  min-height: 69px;
+  box-shadow: 0 0 8px #0e0e0e;
     color: #fff;
     padding: 10px 20px;
     display: flex;
@@ -20,6 +22,7 @@
   
   nav ul li {
     margin-right: 20px;
+    color: #092436;
   }
   
   nav ul li:last-child {
@@ -27,12 +30,47 @@
   }
   
   nav ul li a {
-    color: #fff;
+  
+    font-size: 0.875rem;
     text-decoration: none;
-    font-weight: bold;
   }
   
   nav ul li a:hover {
     text-decoration: underline;
   }
   
+
+  .gg-profile,
+  .gg-profile::after,
+  .gg-profile::before {
+   display: block;
+   box-sizing: border-box;
+   border: 2px solid;
+   border-radius: 100px
+  }
+  
+  .gg-profile {
+   overflow: hidden;
+   transform: scale(var(--ggs,1));
+   width: 22px;
+   height: 22px;
+   position: relative
+  }
+  
+  .gg-profile::after,
+  .gg-profile::before {
+   content: "";
+   position: absolute;
+   top: 2px;
+   left: 5px;
+   width: 8px;
+   height: 8px
+  }
+  
+  .gg-profile::after {
+   border-radius: 200px;
+   top: 11px;
+   left: 0px;
+   width: 18px;
+   height: 18px
+  } 

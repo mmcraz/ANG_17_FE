@@ -1,0 +1,10 @@
+.modern {
+    font-size: 1rem;
+    color: #fff;
+    padding: 5px 20px;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.5);
+    &:hover {
+        border-color: rgba(255,255,255,.5);
+    }
+}
