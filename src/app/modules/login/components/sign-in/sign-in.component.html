@@ -1,0 +1,72 @@
+<div class="grid h-full">
+  <div class="col-7 ad">
+
+  </div>
+  <div class="col-5 h-full p-8" style=" 
+  background: #fff;
+  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!signUp">
+
+      <div class="field">
+        <label for="username">Email</label>
+        <input type="text" class="block w-full" pInputText id="username" formControlName="userName">
+
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+
+        <p-password id="password" class="block w-full" formControlName="password" />
+      </div>
+      <div class="field w-full">
+
+        <button pButton pRipple type="submit" [disabled]="loginForm.invalid"
+          class="p-button-success w-full text-center mt-5 block">Login</button>
+        <a href="javascript:void(0)" class="ml-5 text-xs" (click)="signUpFn()">Sign Up</a>
+      </div>
+
+
+    </form>
+    <form [formGroup]="signUpForm" (ngSubmit)="onSubmitSignUp()" *ngIf="signUp">
+      <div class="field">
+        <label for="firstName">First Name</label>
+        <input type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"
+          pInputText id="firstName" formControlName="firstName">
+
+      </div>
+      <div class="field">
+        <label for="lastName">Last Name</label>
+        <input type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          pInputText id="lastName" formControlName="lastName">
+
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          pInputText id="email" formControlName="email">
+
+      </div>
+      <div class="field">
+        <label for="phone">Phone</label>
+        <input type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          pInputText id="phone" formControlName="phone">
+
+      </div>
+
+
+      <button pButton pRipple type="submit" [disabled]="signUpForm.invalid" class="p-button-success">SignUp</button> <a
+        href="javascript:void(0)" (click)="signUpFn()" class="ml-5">Login</a>
+    </form>
+
+  </div>
+
+</div>
+
+<p-toast></p-toast>
