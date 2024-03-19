@@ -1,6 +1,88 @@
 <section>
-    <div class="flex justify-content-center align-items-center gap-2">
-        <span class="modern">T-Shirts</span>
-        <span class="modern">Gifts</span>
+  <div class="flex justify-content-center align-items-center gap-2">
+    <span class="modern">T-Shirts</span>
+    <span class="modern">Gifts</span>
+  </div>
+
+  <div #tc>
+    <div
+      class="flex flex-column justify-content-center align-items-center mt-8"
+    >
+      <h2>Choose T-shirt Color</h2>
+      <div class="flex gap-2">
+        <span
+          *ngFor="let tc of tColors"
+          class="props"
+          [ngClass]="tc"
+          (click)="selectedTc(tc)"
+        >
+        </span>
+      </div>
     </div>
+  </div>
+
+  <div *ngIf="order.color" #pc class="mt-30 mb-30">
+    <div
+      class="flex flex-column justify-content-center align-items-center mt-8"
+    >
+      <h2>Choose Print Color Pattern</h2>
+      <div class="flex gap-2">
+        <span
+          *ngFor="let pc of pbColors"
+          class="props"
+          [ngClass]="pc"
+          (click)="selectedPc(pc)"
+        >
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="order.pattern" #ts class="mt-30 mb-30">
+    <div
+      class="flex flex-column justify-content-center align-items-center mt-8"
+    >
+      <h2>Choose Tee Size</h2>
+      <div class="flex gap-2">
+        <span
+          *ngFor="let ts of tSizes"
+          class="props bg-white"
+          (click)="selectedTs(ts)"
+        >
+          {{ ts }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div id="tshirt" *ngIf="order.color && order.pattern" #ds class="mt-30 mb-30">
+    <div class="flex justify-content-center align-items-center mt-8">
+      <h3 (click)="inc()" class="mr-2">A+</h3>
+      <input type="text" pInputText [(ngModel)]="order.text" class="p-text" />
+      <h6 (click)="dec()" class="ml-2">A-</h6>
+    </div>
+    <div
+      class="flex flex-column justify-content-center align-items-center mt-8"
+    >
+      <div class="relative">
+        <img
+          src="../../../../../assets/img/tee/{{ order.color }}.png"
+          height="300"
+        />
+        <h2
+          class="selectedPattern"
+          [ngClass]="order.pattern"
+          [ngStyle]="getStyle()"
+        >
+          {{ order.text }}
+        </h2>
+        <span class="letter-spacing"
+          ><p-slider [(ngModel)]="order.space" orientation="vertical"></p-slider
+        ></span>
+      </div>
+      <div class="relative">
+        <p-button label="Order Now" (click)="signIn()"></p-button>
+      </div>
+    </div>
+  </div>
 </section>

@@ -1,11 +1,14 @@
 input.ng-invalid.ng-touched,
 .p-inputwrapper.ng-invalid.ng-touched .p-password-input {
-    border: 2px solid #c73838 !important;
+  border: 2px solid #c73838 !important;
 }
 .error-text {
-    color: #c73838;
+  color: #c73838;
 }
 
 form {
-    color: #855c5c;
+  color: #855c5c;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px 50px;
 }

@@ -1,0 +1,57 @@
+<div class="grid m-0">
+  <div class="col-12 md:col-6">
+    <div
+      class="flex flex-column justify-content-center align-items-center mt-8"
+      *ngIf="getOrder[0].color"
+    >
+      <div class="relative">
+        <img
+          src="../../../../../assets/img/tee/{{ getOrder[0].color }}.png"
+          height="300"
+        />
+        <!--  -->
+        <h2
+          class="selectedPattern"
+          [ngClass]="getOrder[0].pattern"
+          [ngStyle]="getStyle()"
+        >
+          {{ getOrder[0].text }}
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 md:col-6">
+    <div class="flex justify-content-left align-items-center">
+      <div class="block">
+        <div class="flex">
+          <strong>T-shirt Color:</strong>
+          <span>{{ getOrder[0].color }}</span>
+        </div>
+        <div class="flex">
+          <strong>Pattern:</strong>
+          <span>{{ getOrder[0].pattern }}</span>
+        </div>
+        <div class="flex">
+          <strong>Size:</strong>
+          <span>{{ getOrder[0].tsize }}</span>
+        </div>
+        <div class="flex">
+          <strong>Print Text:</strong>
+          <span>{{ getOrder[0].text }}</span>
+        </div>
+        <div class="flex">
+          <strong>Letter Gap:</strong>
+          <span>{{ getOrder[0].space }}</span>
+        </div>
+        <div class="flex mt-4">
+          <strong>Price</strong>
+          <span class="line-through text-xs">1099</span>
+          <span class="">799</span>
+        </div>
+      </div>
+    </div>
+    <div class="relative">
+      <p-button label="Place Order" (click)="placeOrder()"></p-button>
+    </div>
+  </div>
+</div>
