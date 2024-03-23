@@ -14,12 +14,12 @@ export class DashboardComponent {
   pColors = ["p-white", "p-black", "p-red", "p-green", "p-royal_blue"];
 
   order = {
-    color: "",
+    model: "",
     pattern: "",
     text: "1989",
-    size: 32,
+    fsize: 32,
     space: 0,
-    tsize: "",
+    size: "",
     ps: 40,
   };
 
@@ -30,7 +30,7 @@ export class DashboardComponent {
 
   constructor(private router: Router, private authService: AuthService) {}
   selectedTc: any = (tc: string) => (
-    (this.order.color = tc),
+    (this.order.model = tc),
     setTimeout(() =>
       this.pc.nativeElement.scrollIntoView({ behavior: "smooth" })
     )
@@ -42,26 +42,27 @@ export class DashboardComponent {
     )
   );
   selectedTs: any = (ts: string) => (
-    (this.order.tsize = ts),
+    (this.order.size = ts),
     setTimeout(() =>
       this.ds.nativeElement.scrollIntoView({ behavior: "smooth" })
     )
   );
   inc = () =>
-    this.order.size < 32
-      ? ((this.order.size += 8), (this.order.ps -= 15))
-      : ((this.order.size = 32), (this.order.ps = 40));
+    this.order.fsize < 32
+      ? ((this.order.fsize += 8), (this.order.ps -= 15))
+      : ((this.order.fsize = 32), (this.order.ps = 40));
   dec = () =>
-    this.order.size <= 16
-      ? ((this.order.size = 16), (this.order.ps = 60))
-      : ((this.order.size -= 8), (this.order.ps += 15));
+    this.order.fsize <= 16
+      ? ((this.order.fsize = 16), (this.order.ps = 60))
+      : ((this.order.fsize -= 8), (this.order.ps += 15));
   getStyle() {
     return {
-      "font-size": this.order.size + "px",
+      "font-size": this.order.fsize + "px",
       top: this.order.ps + "px",
       "letter-spacing": this.order.space + "px",
     };
   }
+
   signIn() {
     console.log(this.order);
     localStorage.setItem("order", JSON.stringify(this.order));

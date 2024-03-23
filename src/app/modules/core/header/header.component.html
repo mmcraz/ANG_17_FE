@@ -25,10 +25,10 @@
       >
       <div class="flex">
         <span class="gg-profile"></span>
-        <span>{{ userInfo[0].firstName + userInfo[0].lastName }} </span>
+        <span>{{ userInfo.firstName }} </span>
       </div>
       <div>
-        <a href="#" class="text-xs">Your Orders</a>
+        <span (click)="viewOrders()" class="text-xs">Your Orders</span>
       </div>
     </div>
     <p-button label="Sign Out" [outlined]="true" (click)="signOut()"></p-button>

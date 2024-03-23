@@ -1,21 +1,21 @@
-<div class="grid m-0">
+<div class="grid m-0" *ngIf="!orderPlaced">
   <div class="col-12 md:col-6">
     <div
       class="flex flex-column justify-content-center align-items-center mt-8"
-      *ngIf="getOrder[0].color"
+      *ngIf="getOrder.model"
     >
       <div class="relative">
         <img
-          src="../../../../../assets/img/tee/{{ getOrder[0].color }}.png"
+          src="../../../../../assets/img/tee/{{ getOrder.model }}.png"
           height="300"
         />
         <!--  -->
         <h2
           class="selectedPattern"
-          [ngClass]="getOrder[0].pattern"
+          [ngClass]="getOrder.pattern"
           [ngStyle]="getStyle()"
         >
-          {{ getOrder[0].text }}
+          {{ getOrder.text }}
         </h2>
       </div>
     </div>
@@ -24,24 +24,24 @@
     <div class="flex justify-content-left align-items-center">
       <div class="block">
         <div class="flex">
-          <strong>T-shirt Color:</strong>
-          <span>{{ getOrder[0].color }}</span>
+          <strong>T-shirt Model:</strong>
+          <span>{{ getOrder.model }}</span>
         </div>
         <div class="flex">
           <strong>Pattern:</strong>
-          <span>{{ getOrder[0].pattern }}</span>
+          <span>{{ getOrder.pattern }}</span>
         </div>
         <div class="flex">
           <strong>Size:</strong>
-          <span>{{ getOrder[0].tsize }}</span>
+          <span>{{ getOrder.size }}</span>
         </div>
         <div class="flex">
           <strong>Print Text:</strong>
-          <span>{{ getOrder[0].text }}</span>
+          <span>{{ getOrder.text }}</span>
         </div>
         <div class="flex">
-          <strong>Letter Gap:</strong>
-          <span>{{ getOrder[0].space }}</span>
+          <strong>Space:</strong>
+          <span>{{ getOrder.space }}</span>
         </div>
         <div class="flex mt-4">
           <strong>Price</strong>
@@ -54,4 +54,9 @@
       <p-button label="Place Order" (click)="placeOrder()"></p-button>
     </div>
   </div>
+</div>
+<div *ngIf="orderPlaced" class="col-12 md:col-6 order-placed p-5">
+  <i class="mb-3 pi pi-check-circle text-2xl text-color-secondary"></i>
+  <h6 class="m-0">Thank you</h6>
+  <h2 class="m-0">Order Successfully Placed.</h2>
 </div>

@@ -9,6 +9,7 @@ import { Router } from "@angular/router";
 import { AuthService } from "../../../core/services/auth.service";
 
 import { MessageService } from "primeng/api";
+import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: "app-sign-in",
@@ -25,7 +26,8 @@ export class SignInComponent {
     private formBuilder: FormBuilder,
     private messageService: MessageService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private cookieService: CookieService
   ) {
     this.loginForm = this.formBuilder.group({
       userName: ["", Validators.required],
@@ -74,12 +76,17 @@ export class SignInComponent {
     this.loginForm.reset();
   }
 
+  getCookie() {
+    const value = this.cookieService.get("loggedIn");
+    console.log(value);
+  }
   onSubmit() {
     if (this.loginForm.valid) {
       const userInfo = {
         userName: this.loginForm.value.userName,
         password: this.loginForm.value.password,
       };
+
       // Process login form submission
       this.authService.login(userInfo).subscribe(
         (data) => {
@@ -90,7 +97,13 @@ export class SignInComponent {
               summary: "Error",
               detail: "Successfully Logged In",
             });
-            localStorage.setItem("token", JSON.stringify(data));
+            const expirationDate = new Date();
+            expirationDate.setHours(23, 59, 59, 0); // Set time to 23:59:5
+            this.cookieService.set(
+              "loggedIn",
+              JSON.stringify(data),
+              expirationDate
+            );
 
             if (localStorage.getItem("order")) {
               this.router.navigate(["/app/home/checkout"]);

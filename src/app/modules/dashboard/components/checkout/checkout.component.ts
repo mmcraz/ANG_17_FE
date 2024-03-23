@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { AuthService } from "../../../core/services/auth.service";
 
 @Component({
   selector: "app-checkout",
@@ -8,27 +9,38 @@ import { Component } from "@angular/core";
 export class CheckoutComponent {
   getOrder: any = [
     {
-      color: "",
+      model: "",
       pattern: "",
       text: "1989",
-      size: 32,
+      fsize: 32,
       space: 0,
-      tsize: "",
+      size: "",
+      userId: 0,
     },
   ];
 
-  constructor() {
+  orderPlaced: boolean = false;
+
+  constructor(private authService: AuthService) {
     const serializedObject: any = localStorage.getItem("order");
-    this.getOrder[0] = JSON.parse(serializedObject);
-    console.log(this.getOrder[0].color);
+    const order = JSON.parse(serializedObject);
+    this.getOrder = order;
   }
 
   getStyle() {
     return {
-      "font-size": this.getOrder[0].size + "px",
-      top: this.getOrder[0].ps + "px",
-      "letter-spacing": this.getOrder[0].space + "px",
+      "font-size": this.getOrder.fsize + "px",
+      top: this.getOrder.ps + "px",
+      "letter-spacing": this.getOrder.space + "px",
     };
   }
-  placeOrder() {}
+  placeOrder() {
+    delete this.getOrder.ps;
+    const userInfo: any = this.authService.getUserInfo();
+    this.getOrder.userId = userInfo[0]._id;
+    this.authService.saveOrders(this.getOrder).subscribe((data) => {
+      this.orderPlaced = true;
+      console.log("Order placed", data);
+    });
+  }
 }

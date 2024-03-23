@@ -1,16 +1,22 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
-
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { Router } from "@angular/router";
+import { CookieService } from "ngx-cookie-service";
+import { Location } from "@angular/common";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = "http://localhost:3000";
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private cookieService: CookieService,
+    private location: Location
+  ) {}
 
   login(user: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, user);
@@ -20,21 +26,27 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/signUp`, user);
   }
 
-
   isLoggedIn(): boolean {
-    // Your authentication logic here
-    // For example, check if user is logged in
-    return !!localStorage.getItem('token'); // Assuming you have a token in localStorage
+    return !!this.cookieService.get("loggedIn");
   }
 
-  signOut(): void {
-    // Clear user authentication tokens or perform any necessary cleanup
-    // For example:
-    localStorage.removeItem('token');
-    // Redirect the user to the sign-in page
-    this.router.navigate(['/app/login']);
-
+  getUserInfo() {
+    const user = this.cookieService.get("loggedIn");
+    return JSON.parse(user);
   }
 
+  signOut() {
+    this.cookieService.delete("loggedIn");
+    localStorage.clear();
+    window.location.reload();
+    this.router.navigate(["/app/login"]);
+  }
 
+  saveOrders(order: any) {
+    return this.http.post<any>(`${this.apiUrl}/saveOrders`, order);
+  }
+
+  getOrders(userId: any) {
+    return this.http.get<any>(`${this.apiUrl}/getOrdersList${userId}`);
+  }
 }

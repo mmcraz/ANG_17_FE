@@ -102,6 +102,22 @@ ul {
   color: #236d2f;
 }
 
+.container {
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 1);
+
+  &.orderList {
+    > div {
+      min-height: 100px;
+      align-items: center;
+      border-bottom: 1px solid #e6e6e6;
+      &:hover {
+        background-color: #e6e6e6;
+      }
+    }
+  }
+}
+
 .selectedPattern {
   position: absolute;
   top: 40px;

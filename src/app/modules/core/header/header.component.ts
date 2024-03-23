@@ -8,15 +8,18 @@ import { Router } from "@angular/router";
   styleUrl: "./header.component.scss",
 })
 export class HeaderComponent {
-  userInfo: any;
+  userInfo: any = [
+    {
+      firstName: "",
+    },
+  ];
   isLoggedIn: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {
     if (this.authService.isLoggedIn()) {
       setTimeout(() => {
-        let serializedObject: any = localStorage.getItem("token");
-
-        this.userInfo = JSON.parse(serializedObject);
+        const info = this.authService.getUserInfo();
+        this.userInfo = info[0];
       }, 1000);
 
       this.isLoggedIn = true;
@@ -32,5 +35,9 @@ export class HeaderComponent {
 
   gotoHome() {
     this.router.navigate(["app/home"]);
+  }
+
+  viewOrders() {
+    this.router.navigate(["app/home/orders"]);
   }
 }

@@ -21,7 +21,7 @@
     </div>
   </div>
 
-  <div *ngIf="order.color" #pc class="mt-30 mb-30">
+  <div *ngIf="order.model" #pc class="mt-30 mb-30">
     <div
       class="flex flex-column justify-content-center align-items-center mt-8"
     >
@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  <div id="tshirt" *ngIf="order.color && order.pattern" #ds class="mt-30 mb-30">
+  <div id="tshirt" *ngIf="order.model && order.pattern" #ds class="mt-30 mb-30">
     <div class="flex justify-content-center align-items-center mt-8">
       <h3 (click)="inc()" class="mr-2">A+</h3>
       <input type="text" pInputText [(ngModel)]="order.text" class="p-text" />
@@ -66,7 +66,7 @@
     >
       <div class="relative">
         <img
-          src="../../../../../assets/img/tee/{{ order.color }}.png"
+          src="../../../../../assets/img/tee/{{ order.model }}.png"
           height="300"
         />
         <h2
