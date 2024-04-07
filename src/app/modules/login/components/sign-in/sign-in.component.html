@@ -1,22 +1,23 @@
 <app-header></app-header>
-<div class="grid h-full m-0">
-  <div class="col-12 md:col-7 flex align-items-center justify-content-center">
-    <h1>Print your design</h1>
 
-    <h4 class="block">mmcraz</h4>
+<div class="grid h-full wrap container">
+  <div class="col-12 md:col-7 flex align-items-center justify-content-center">
+    <div>
+      <h4 class="block m-0">mmcraz</h4>
+      <h1 class="m-0">Print your design</h1>
+    </div>
   </div>
   <div
-    class="col-12 md:col-5 h-full p-8"
+    class="col-12 md:col-5 h-full p-4"
     style="
       place-items: center;
-      display: flex;
+
       justify-content: center;
       align-items: center;
       height: 100vh;
     "
   >
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" *ngIf="!signUp">
-      <h3>mmcraz</h3>
       <div class="field">
         <label for="username">Email</label>
         <input
@@ -34,6 +35,7 @@
           id="password"
           class="block w-full"
           formControlName="password"
+          [feedback]="false"
         />
       </div>
       <div class="field w-full">
@@ -46,9 +48,13 @@
         >
           Login
         </button>
-        <a href="javascript:void(0)" class="ml-5 text-xs" (click)="signUpFn()"
-          >Sign Up</a
-        >
+        <p class="text-center">Or</p>
+        <p-button
+          label="Sign Up"
+          [outlined]="true"
+          (click)="signUpFn()"
+          class="p-button-secondary w-full text-center mt-5 block"
+        ></p-button>
       </div>
     </form>
     <form [formGroup]="signUpForm" (ngSubmit)="onSubmitSignUp()" *ngIf="signUp">
@@ -169,13 +175,21 @@
         pRipple
         type="submit"
         [disabled]="signUpForm.invalid"
-        class="p-button-success p-button"
+        class="p-button-success w-full text-center mt-5 block"
       >
         SignUp
       </button>
-      <a href="javascript:void(0)" (click)="signUpFn()" class="ml-5">Login</a>
+      <p class="text-center">Or</p>
+      <p-button
+        label="Login"
+        [outlined]="true"
+        (click)="signUpFn()"
+        class="p-button-secondary w-full text-center mt-5 block"
+      ></p-button>
     </form>
   </div>
 </div>
-<app-footer></app-footer>
+
 <p-toast></p-toast>
+
+<app-footer></app-footer>

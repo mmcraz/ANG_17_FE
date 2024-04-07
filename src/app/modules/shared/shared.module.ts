@@ -9,6 +9,7 @@ import { ButtonModule } from "primeng/button";
 import { InputTextModule } from "primeng/inputtext";
 import { SliderModule } from "primeng/slider";
 import { DataViewModule } from "primeng/dataview";
+import { OverlayPanelModule } from "primeng/overlaypanel";
 
 @NgModule({
   declarations: [HeaderComponent, FooterComponent],
@@ -19,6 +20,7 @@ import { DataViewModule } from "primeng/dataview";
     FormsModule,
     SliderModule,
     DataViewModule,
+    OverlayPanelModule,
   ],
   exports: [
     HeaderComponent,
@@ -28,6 +30,7 @@ import { DataViewModule } from "primeng/dataview";
     FormsModule,
     SliderModule,
     DataViewModule,
+    OverlayPanelModule,
   ],
 })
 export class SharedModule {}

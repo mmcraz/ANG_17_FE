@@ -10,6 +10,7 @@ import { AuthService } from "../../../core/services/auth.service";
 
 import { MessageService } from "primeng/api";
 import { CookieService } from "ngx-cookie-service";
+import { LoaderService } from "../../../core/services/loader.service";
 
 @Component({
   selector: "app-sign-in",
@@ -27,7 +28,8 @@ export class SignInComponent {
     private messageService: MessageService,
     private router: Router,
     private authService: AuthService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    public loaderService: LoaderService
   ) {
     this.loginForm = this.formBuilder.group({
       userName: ["", Validators.required],
@@ -82,6 +84,7 @@ export class SignInComponent {
   }
   onSubmit() {
     if (this.loginForm.valid) {
+      // this.loaderService.show();
       const userInfo = {
         userName: this.loginForm.value.userName,
         password: this.loginForm.value.password,
@@ -94,16 +97,26 @@ export class SignInComponent {
           if (data) {
             this.messageService.add({
               severity: "success",
-              summary: "Error",
+              summary: "Success",
               detail: "Successfully Logged In",
             });
+            //  this.loaderService.hide();
             const expirationDate = new Date();
             expirationDate.setHours(23, 59, 59, 0); // Set time to 23:59:5
-            this.cookieService.set(
-              "loggedIn",
-              JSON.stringify(data),
-              expirationDate
-            );
+            // this.cookieService.set(
+            //   "loggedIn",
+            //   JSON.stringify(data),
+            //   expirationDate,
+            //   "/app"
+            // );
+
+            document.cookie =
+              "loggedIn" +
+              "=" +
+              JSON.stringify(data) +
+              ";" +
+              expirationDate +
+              ";path=/app";
 
             if (localStorage.getItem("order")) {
               this.router.navigate(["/app/home/checkout"]);
@@ -114,10 +127,11 @@ export class SignInComponent {
           }
         },
         (error) => {
+          //  this.loaderService.hide();
           this.messageService.add({
             severity: "error",
             summary: "Error",
-            detail: error.error.message,
+            detail: error.error.message || error.message,
           });
         }
       );

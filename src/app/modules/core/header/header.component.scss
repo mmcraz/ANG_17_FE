@@ -1,10 +1,15 @@
 .header {
   min-height: 69px;
-  color: #fff;
+  color: #333;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 40px;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  box-shadow: 0 0 7px #ccc;
 }
 
 .logo img {
@@ -28,6 +33,7 @@ nav ul li:last-child {
 }
 
 nav ul li a {
+  color: #fff;
   font-size: 0.875rem;
   text-decoration: none;
 }
@@ -69,4 +75,15 @@ nav ul li a:hover {
   left: 0px;
   width: 18px;
   height: 18px;
+}
+
+.user-name {
+  width: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.profile span:hover {
+  color: #6b907b;
 }

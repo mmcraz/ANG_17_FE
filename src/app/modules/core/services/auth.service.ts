@@ -9,8 +9,8 @@ import { Location } from "@angular/common";
   providedIn: "root",
 })
 export class AuthService {
+  // private apiUrl = "https://ang-17-be.onrender.com";
   private apiUrl = "http://localhost:3000";
-
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -36,9 +36,9 @@ export class AuthService {
   }
 
   signOut() {
-    this.cookieService.delete("loggedIn");
+    // this.cookieService.delete("loggedIn");
+    document.cookie = "loggedIn" + "=; Max-Age=-99999999;";
     localStorage.clear();
-    window.location.reload();
     this.router.navigate(["/app/login"]);
   }
 
@@ -47,6 +47,14 @@ export class AuthService {
   }
 
   getOrders(userId: any) {
-    return this.http.get<any>(`${this.apiUrl}/getOrdersList${userId}`);
+    return this.http.get<any>(`${this.apiUrl}/getOrdersList/${userId}`);
+  }
+
+  deleteOrder(orderId: any) {
+    return this.http.delete<any>(`${this.apiUrl}/delete/${orderId}`);
+  }
+
+  permanentDeleteOrder(orderId: any): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/rm/${orderId}`);
   }
 }

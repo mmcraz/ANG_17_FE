@@ -1,3 +1,8 @@
-<router-outlet /><p-toast></p-toast> <div class="wave"></div>
+<router-outlet /><p-toast></p-toast>
 <div class="wave"></div>
 <div class="wave"></div>
+<div class="wave"></div>
+
+<div class="loader-wrap" *ngIf="loaderService.isLoading$ | async">
+  <span class="loader"></span>
+</div>

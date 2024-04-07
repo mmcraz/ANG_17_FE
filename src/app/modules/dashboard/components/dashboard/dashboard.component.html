@@ -1,8 +1,8 @@
-<section>
-  <div class="flex justify-content-center align-items-center gap-2">
+<section class="container wrap">
+  <!-- <div class="flex justify-content-center align-items-center gap-2">
     <span class="modern">T-Shirts</span>
     <span class="modern">Gifts</span>
-  </div>
+  </div> -->
 
   <div #tc>
     <div
@@ -10,14 +10,16 @@
     >
       <h2>Choose T-shirt Color</h2>
       <div class="flex gap-2">
-        <span
-          *ngFor="let tc of tColors"
-          class="props"
-          [ngClass]="tc"
-          (click)="selectedTc(tc)"
-        >
-        </span>
+        <div *ngFor="let tc of tColors">
+          <div [ngClass]="tc == order.model ? 'active' : ''">
+            <span class="props" [ngClass]="tc" (click)="selectedTc(tc)"> </span>
+          </div>
+        </div>
       </div>
+      <p class="col-12 md:col-4">
+        "T-shirt color" refers to the specific shade or hue of the T-shirt's
+        fabric. T-shirts come in a wide range of colors.
+      </p>
     </div>
   </div>
 
@@ -25,8 +27,8 @@
     <div
       class="flex flex-column justify-content-center align-items-center mt-8"
     >
-      <h2>Choose Print Color Pattern</h2>
-      <div class="flex gap-2">
+      <h2>Choose Text Print Color Pattern</h2>
+      <!-- <div class="flex gap-2">
         <span
           *ngFor="let pc of pbColors"
           class="props"
@@ -34,7 +36,20 @@
           (click)="selectedPc(pc)"
         >
         </span>
+      </div> -->
+
+      <div class="flex gap-2">
+        <div *ngFor="let pc of pbColors">
+          <div [ngClass]="'pc-' + pc == order.pattern ? 'active' : ''">
+            <span class="props" [ngClass]="pc" (click)="selectedPc(pc)"> </span>
+          </div>
+        </div>
       </div>
+      <p class="col-12 md:col-4">
+        Color patterns can vary widely in complexity and style, ranging from
+        simple alternating colors to intricate designs with multiple hues and
+        shades
+      </p>
     </div>
   </div>
 
@@ -42,8 +57,8 @@
     <div
       class="flex flex-column justify-content-center align-items-center mt-8"
     >
-      <h2>Choose Tee Size</h2>
-      <div class="flex gap-2">
+      <h2>Choose T-shirt Size</h2>
+      <!-- <div class="flex gap-2">
         <span
           *ngFor="let ts of tSizes"
           class="props bg-white"
@@ -51,18 +66,84 @@
         >
           {{ ts }}
         </span>
+      </div> -->
+
+      <div class="flex gap-2">
+        <div *ngFor="let ts of tSizes">
+          <div [ngClass]="ts == order.size ? 'active' : ''">
+            <span class="props" [ngClass]="ts" (click)="selectedTs(ts)">
+              {{ ts }}
+            </span>
+          </div>
+        </div>
       </div>
+      <p class="col-12 md:col-4">
+        T-shirt sizes typically refer to the dimensions of the garment,
+        primarily its width and length, which determine how it fits on the
+        wearer's body
+      </p>
     </div>
   </div>
 
-  <div id="tshirt" *ngIf="order.model && order.pattern" #ds class="mt-30 mb-30">
-    <div class="flex justify-content-center align-items-center mt-8">
-      <h3 (click)="inc()" class="mr-2">A+</h3>
-      <input type="text" pInputText [(ngModel)]="order.text" class="p-text" />
-      <h6 (click)="dec()" class="ml-2">A-</h6>
+  <div id="tshirt" *ngIf="order.size" #ds class="mt-30">
+    <div>
+      <h2 class="text-center m-0">Type your text</h2>
+      <div class="flex justify-content-center align-items-center">
+        <h3 (click)="inc()" class="mr-2">A+</h3>
+        <div>
+          <input
+            type="text"
+            pInputText
+            [(ngModel)]="order.text"
+            class="p-text"
+            [maxlength]="maxLengthValue"
+            placeholder="Type your Text"
+          />
+          <span class="fs-10 block"
+            >Max. {{ maxLengthValue }} character printable</span
+          >
+        </div>
+
+        <h6 (click)="dec()" class="ml-2">A-</h6>
+      </div>
+
+      <h5
+        class="flex space-ex gap-2 justify-content-center align-items-center m-0 mt-2"
+      >
+        Letter Space
+      </h5>
+      <div
+        class="flex space-ex gap-2 justify-content-center align-items-center mt-1"
+      >
+        <span
+          class="ls-10"
+          (click)="setSpace(10)"
+          [ngClass]="spc == 10 ? 'sp-active' : ''"
+          >ABCD</span
+        >
+        <span
+          class="ls-5"
+          (click)="setSpace(5)"
+          [ngClass]="spc == 5 ? 'sp-active' : ''"
+          >ABCD</span
+        >
+        <span
+          class="ls-3"
+          (click)="setSpace(3)"
+          [ngClass]="spc == 3 ? 'sp-active' : ''"
+          >ABCD</span
+        >
+        <span
+          class="ls-2"
+          (click)="setSpace(2)"
+          [ngClass]="spc == 2 ? 'sp-active' : ''"
+          >ABCD</span
+        >
+      </div>
     </div>
+
     <div
-      class="flex flex-column justify-content-center align-items-center mt-8"
+      class="flex flex-column justify-content-center align-items-center mt-4"
     >
       <div class="relative">
         <img
@@ -74,14 +155,24 @@
           [ngClass]="order.pattern"
           [ngStyle]="getStyle()"
         >
-          {{ order.text }}
+          <span [ngClass]="getSpace()">{{ order.text }}</span>
         </h2>
-        <span class="letter-spacing"
-          ><p-slider [(ngModel)]="order.space" orientation="vertical"></p-slider
-        ></span>
+        <!-- <span class="letter-spacing"
+          ><p-slider
+            [(ngModel)]="order.space"
+            orientation="vertical"
+            (onChange)="spaceChange($event)"
+          ></p-slider
+        ></span> -->
       </div>
       <div class="relative">
-        <p-button label="Order Now" (click)="signIn()"></p-button>
+        <button
+          pButton
+          pRipple
+          label="Buy Now"
+          (click)="signIn()"
+          class="p-button-success w-full text-center mt-5 block"
+        ></button>
       </div>
     </div>
   </div>

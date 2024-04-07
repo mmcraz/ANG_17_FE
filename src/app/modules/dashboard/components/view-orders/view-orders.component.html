@@ -1,5 +1,16 @@
-<div class="container orderList mt-4 mb-4">
-  <div *ngFor="let order of orderList" class="col-12 grid">
+<h2 class="grid justify-content-center m-0 mb-4">Your Orders</h2>
+
+<div
+  class="container orderList mt-4 mb-4 wrap bg-wrap"
+  *ngIf="orderList$ | async as data"
+>
+  <div
+    *ngIf="!data.length"
+    class="flex justify-content-center align-items-center"
+  >
+    No data found.
+  </div>
+  <div *ngFor="let order of data" class="col-12 grid m-0">
     <div class="col-4 text-center">
       <img
         src="../../../../../assets/img/tee/{{ order.model }}.png"
@@ -8,42 +19,55 @@
     </div>
     <div class="col-4">
       <div class="col-12 grid">
-        <div class="col-3 p-0 text-xs font-bold">Model</div>
-        <div class="col-6 p-0 text-xs">{{ order.model }}</div>
+        <div class="col-12 md:col-3 p-0 text-xs font-bold">Model</div>
+        <div class="col-12 md:col-6 p-0 text-xs">{{ order.model }}</div>
       </div>
       <div class="col-12 grid">
-        <div class="col-3 p-0 text-xs font-bold">Pattern</div>
-        <div class="col-9 p-0 text-xs">{{ order.pattern }}</div>
+        <div class="col-12 md:col-3 p-0 text-xs font-bold">Pattern</div>
+        <div class="col-12 md:col-9 p-0 text-xs">{{ order.pattern }}</div>
       </div>
       <div class="col-12 grid">
         <div class="col-3 p-0 text-xs font-bold">Size</div>
         <div class="col-9 p-0 text-xs">{{ order.size }}</div>
       </div>
       <div class="col-12 grid">
-        <div class="col-3 p-0 text-xs font-bold">Text</div>
-        <div class="col-9 p-0 text-xs">{{ order.text }}</div>
+        <div class="col-12 md:col-3 p-0 text-xs font-bold">Text</div>
+        <div class="col-12 md:col-9 p-0 text-xs">{{ order.text }}</div>
       </div>
       <div class="col-12 grid">
-        <div class="col-3 p-0 text-xs font-bold">Font size</div>
-        <div class="col-9 p-0 text-xs">{{ order.fsize }}</div>
+        <div class="col-12 md:col-3 p-0 text-xs font-bold">Font size</div>
+        <div class="col-12 md:col-9 p-0 text-xs">{{ order.fsize }}</div>
       </div>
       <div class="col-12 grid">
-        <div class="col-3 p-0 text-xs font-bold">Space</div>
-        <div class="col-9 p-0 text-xs">{{ order.space }}</div>
+        <div class="col-12 md:col-3 p-0 text-xs font-bold">Letter Space</div>
+        <div class="col-12 md:col-9 p-0 text-xs">{{ order.space }}</div>
       </div>
     </div>
     <div class="col-4">
-      <div class="col-6 p-0 text-xs font-bold">Ordered On</div>
-      <div class="col-6 p-0 text-xs mb-4">22/12/2024</div>
-      <div class="col-6 p-0 text-xs font-bold">Price</div>
-      <div class="col-6 p-0 text-xs mb-4"><h2 class="m-0">$399</h2></div>
+      <div class="col-12 md:col-6 p-0 text-xs font-bold">Ordered On</div>
+      <div class="col-12 md:col-6 p-0 text-xs mb-4">{{ order.date }}</div>
+      <div class="col-12 md:col-6 p-0 text-xs font-bold">Price</div>
+      <div class="col-12 md:col-6 p-0 text-xs mb-4">
+        <h2 class="m-0">₹399</h2>
+      </div>
 
-      <div class="col-6 p-0 text-xs font-bold">Delivery</div>
-      <div class="col-6 p-0 text-xs">
-        <div class="loading animated fadeIn">
-          Loading
-          <div class="bg"></div>
+      <div class="col-12 md:col-6 p-0 text-xs font-bold">Delivery Status</div>
+      <div class="col-12 md:col-6 p-0 text-xs mb-4">{{ order.status }}</div>
+      <div class="flex justify-content-left align-items-center">
+        <div
+          class="col-12 md:col-6 p-0 text-xs font-bold mt-2"
+          *ngIf="order.status !== 'Cancelled'"
+        >
+          <p-button
+            label="Cancel Order"
+            [outlined]="true"
+            (click)="cancelOrder(order._id)"
+          ></p-button>
         </div>
+        <i
+          class="pi pi-trash text-color-secondary cursor-pointer"
+          (click)="removeOrder(order._id)"
+        ></i>
       </div>
     </div>
   </div>
