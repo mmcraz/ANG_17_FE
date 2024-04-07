@@ -11,7 +11,15 @@ import { DatePipe } from "@angular/common";
 export class DashboardComponent {
   tColors = ["white", "black", "red", "green", "royal_blue"];
   tSizes = ["S", "M", "XL", "XXL", "XXXL"];
-  pbColors = ["white", "black", "red", "green", "royal_blue"];
+  pbColors = [
+    "white",
+    "black",
+    "red",
+    "green",
+    "royal_blue",
+    "glitter",
+    "metalic",
+  ];
   pColors = ["p-white", "p-black", "p-red", "p-green", "p-royal_blue"];
   maxLengthValue = 4;
   spc = 0;
@@ -32,6 +40,39 @@ export class DashboardComponent {
   @ViewChild("pc") pc!: ElementRef;
   @ViewChild("ts") ts!: ElementRef;
   @ViewChild("ds") ds!: ElementRef;
+
+  products: any = [
+    {
+      inch: "Chest",
+      xs: 18,
+      s: 38,
+      m: 40,
+      l: 42,
+      xl: 44,
+      xxl: 46,
+      xxxl: 48,
+    },
+    {
+      inch: "Length",
+      xs: 25,
+      s: 26,
+      m: 27,
+      l: 28,
+      xl: 29,
+      xxl: 30,
+      xxxl: 31,
+    },
+    {
+      inch: "Sleeve",
+      xs: 6.5,
+      s: 7,
+      m: 7.5,
+      l: 8,
+      xl: 8.5,
+      xxl: 9,
+      xxxl: 9.5,
+    },
+  ];
 
   constructor(
     private router: Router,
@@ -141,6 +182,7 @@ export class DashboardComponent {
 
   signIn() {
     localStorage.setItem("order", JSON.stringify(this.order));
+
     if (!this.authService.isLoggedIn()) {
       this.router.navigate(["app/login"]);
       return;

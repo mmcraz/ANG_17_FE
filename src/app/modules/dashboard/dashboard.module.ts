@@ -7,10 +7,19 @@ import { SharedModule } from "../shared/shared.module";
 import { SliderModule } from "primeng/slider";
 import { CheckoutComponent } from "./components/checkout/checkout.component";
 import { ViewOrdersComponent } from "./components/view-orders/view-orders.component";
+import { TableModule } from "primeng/table";
+import { ButtonModule } from "primeng/button";
 
 @NgModule({
   declarations: [DashboardComponent, CheckoutComponent, ViewOrdersComponent],
-  imports: [CommonModule, DashboardRoutingModule, SharedModule, SliderModule],
+  imports: [
+    CommonModule,
+    DashboardRoutingModule,
+    SharedModule,
+    SliderModule,
+    TableModule,
+    ButtonModule,
+  ],
   providers: [DatePipe],
 })
 export class DashboardModule {}

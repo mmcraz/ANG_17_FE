@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-header",
@@ -13,17 +14,23 @@ export class HeaderComponent {
       firstName: "",
     },
   ];
-  isLoggedIn: boolean = false;
+  isLoggedIn$!: Observable<boolean>;
 
   constructor(private authService: AuthService, private router: Router) {
-    if (this.authService.isLoggedIn()) {
-      setTimeout(() => {
-        const info = this.authService.getUserInfo();
-        this.userInfo = info[0];
-      }, 1000);
-
-      this.isLoggedIn = true;
+    this.isLoggedIn$ = this.authService.isLoggedInObser();
+    const info = this.authService.getUserInfo();
+    if (info) {
+      this.userInfo = info[0];
     }
+
+    // if (this.authService.isLoggedIn()) {
+    //   setTimeout(() => {
+    //     const info = this.authService.getUserInfo();
+    //     this.userInfo = info[0];
+    //   }, 1000);
+
+    //   this.isLoggedIn = true;
+    // }
   }
 
   signIn() {

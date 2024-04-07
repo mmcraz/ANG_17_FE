@@ -20,6 +20,13 @@
         "T-shirt color" refers to the specific shade or hue of the T-shirt's
         fabric. T-shirts come in a wide range of colors.
       </p>
+      <div class="mt-2">
+        <img
+          src="../../../../../assets/img/ads/tee.png"
+          alt="t-shirt"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
 
@@ -41,15 +48,29 @@
       <div class="flex gap-2">
         <div *ngFor="let pc of pbColors">
           <div [ngClass]="'pc-' + pc == order.pattern ? 'active' : ''">
-            <span class="props" [ngClass]="pc" (click)="selectedPc(pc)"> </span>
+            <span class="props" [ngClass]="pc" (click)="selectedPc(pc)">
+              <img
+                *ngIf="pc == 'metalic' || pc == 'glitter'"
+                src="../../../../../assets/img/ads/{{ pc }}.png"
+                width="50"
+                alt="pattern"
+            /></span>
           </div>
         </div>
+        <div></div>
       </div>
       <p class="col-12 md:col-4">
         Color patterns can vary widely in complexity and style, ranging from
         simple alternating colors to intricate designs with multiple hues and
         shades
       </p>
+      <div class="mt-2">
+        <img
+          src="../../../../../assets/img/ads/pattern.png"
+          alt="t-shirt"
+          width="100%"
+        />
+      </div>
     </div>
   </div>
 
@@ -82,6 +103,36 @@
         primarily its width and length, which determine how it fits on the
         wearer's body
       </p>
+      <em
+        ><strong>Note:</strong> Sizes may rarely vary in the range of +/- 0.5
+        inches.</em
+      >
+      <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Inches</th>
+            <th>XS</th>
+            <th>S</th>
+            <th>M</th>
+            <th>L</th>
+            <th>XL</th>
+            <th>XXL</th>
+            <th>XXXL</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product>
+          <tr>
+            <td>{{ product.inch }}</td>
+            <td>{{ product.xs }}</td>
+            <td>{{ product.s }}</td>
+            <td>{{ product.m }}</td>
+            <td>{{ product.l }}</td>
+            <td>{{ product.xl }}</td>
+            <td>{{ product.xxl }}</td>
+            <td>{{ product.xxxl }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
 

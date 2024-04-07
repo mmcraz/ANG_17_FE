@@ -2,8 +2,10 @@
   <div class="logo">
     <h2 style="margin: 0">mmcraz</h2>
   </div>
-
-  <div class="block flex gap-2 text-color-secondary" *ngIf="!isLoggedIn">
+  <div
+    class="block flex gap-2 text-color-secondary"
+    *ngIf="!(isLoggedIn$ | async) as data"
+  >
     <a
       href="javascript:void(0)"
       class="text-xs no-underline p-3"
@@ -14,7 +16,7 @@
   </div>
   <div
     class="col-6 text-right justify-content-center align-items-center"
-    *ngIf="isLoggedIn"
+    *ngIf="isLoggedIn$ | async as data"
   >
     <div class="flex justify-content-end align-items-center">
       <a

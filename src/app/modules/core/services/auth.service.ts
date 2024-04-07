@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
+import { BehaviorSubject, Observable, of } from "rxjs";
 import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 import { Location } from "@angular/common";
@@ -9,14 +9,17 @@ import { Location } from "@angular/common";
   providedIn: "root",
 })
 export class AuthService {
-  // private apiUrl = "https://ang-17-be.onrender.com";
-  private apiUrl = "http://localhost:3000";
+  private apiUrl = "https://ang-17-be.onrender.com";
+  // private apiUrl = "http://localhost:3000";
   constructor(
     private http: HttpClient,
     private router: Router,
     private cookieService: CookieService,
     private location: Location
   ) {}
+
+  private isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
   login(user: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, user);
@@ -30,9 +33,19 @@ export class AuthService {
     return !!this.cookieService.get("loggedIn");
   }
 
+  isLoggedInObser() {
+    if (this.cookieService.get("loggedIn")) {
+      return of(true);
+    } else {
+      return of(false);
+    }
+  }
+
   getUserInfo() {
     const user = this.cookieService.get("loggedIn");
-    return JSON.parse(user);
+    if (user) {
+      return JSON.parse(user);
+    }
   }
 
   signOut() {
