@@ -4,6 +4,7 @@ import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { authGuard } from "../core/guard/auth.guard";
 import { CheckoutComponent } from "./components/checkout/checkout.component";
 import { ViewOrdersComponent } from "./components/view-orders/view-orders.component";
+import { NewOrdersComponent } from "./components/new-orders/new-orders.component";
 
 const routes: Routes = [
   {
@@ -19,6 +20,11 @@ const routes: Routes = [
     path: "orders",
     canActivate: [authGuard],
     component: ViewOrdersComponent,
+  },
+  {
+    path: "newOrders",
+    canActivate: [authGuard],
+    component: NewOrdersComponent,
   },
   //
 ];

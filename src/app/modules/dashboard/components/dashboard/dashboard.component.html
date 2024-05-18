@@ -44,10 +44,9 @@
         >
         </span>
       </div> -->
-
       <div class="flex gap-2">
         <div *ngFor="let pc of pbColors">
-          <div [ngClass]="'pc-' + pc == order.pattern ? 'active' : ''">
+          <div [ngClass]="'p-' + pc == order.pattern ? 'active' : ''">
             <span class="props" [ngClass]="pc" (click)="selectedPc(pc)">
               <img
                 *ngIf="pc == 'metalic' || pc == 'glitter'"

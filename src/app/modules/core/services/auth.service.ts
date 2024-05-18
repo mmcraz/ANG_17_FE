@@ -9,8 +9,8 @@ import { Location } from "@angular/common";
   providedIn: "root",
 })
 export class AuthService {
-  private apiUrl = "https://ang-17-be.onrender.com";
-  // private apiUrl = "http://localhost:3000";
+  //private apiUrl = "https://ang-17-be.onrender.com";
+  private apiUrl = "http://localhost:3000";
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -69,5 +69,12 @@ export class AuthService {
 
   permanentDeleteOrder(orderId: any): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/rm/${orderId}`);
+  }
+
+  getNewOrders() {
+    return this.http.get<any>(`${this.apiUrl}/getNewOrdersList`);
+  }
+  updateOrders(product: any) {
+    return this.http.put<any>(`${this.apiUrl}/updateStatus`, product);
   }
 }

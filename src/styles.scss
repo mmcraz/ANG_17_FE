@@ -346,3 +346,40 @@ label {
     box-shadow: 0 0 10px #f1d34c;
   }
 }
+
+.wa {
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 999999;
+  text-align: center;
+  .icon {
+    background: #fff url("./assets/img/wa.png") no-repeat;
+    width: 60px;
+    height: 50px;
+    display: block;
+    background-size: 70%;
+    background-position: center;
+  }
+}
+
+.p-glitter {
+  font-size: 66px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: url("./assets/img/bg/glitter.png") 0 0 / cover no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.p-metalic {
+  font-size: 66px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: url("./assets/img/bg/metalic.png") 0 0 / cover no-repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

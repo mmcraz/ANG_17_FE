@@ -47,4 +47,7 @@ export class HeaderComponent {
   viewOrders() {
     this.router.navigate(["app/home/orders"]);
   }
+  dashboard() {
+    this.router.navigate(["app/home/newOrders"]);
+  }
 }

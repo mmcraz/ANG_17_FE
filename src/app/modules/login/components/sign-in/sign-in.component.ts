@@ -42,6 +42,18 @@ export class SignInComponent {
         lastName: ["", Validators.required],
         email: ["", [Validators.required, Validators.email]],
         password: ["", Validators.required],
+        addressOne: ["", Validators.required],
+        addressTwo: ["", Validators.required],
+        city: ["", Validators.required],
+        state: ["", Validators.required],
+        pin: [
+          "",
+          [
+            Validators.required,
+            Validators.minLength(6),
+            Validators.maxLength(6),
+          ],
+        ],
         confirmPassword: ["", Validators.required],
         phone: [
           "",

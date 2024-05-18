@@ -49,12 +49,30 @@
         <div class="mt-4">
           <span class="txt-color-grey text-sm">Price:</span>
 
-          <h5 class="m-0"><span class="line-through text-xs">1099</span>799</h5>
+          <h5 class="m-0">
+            <span class="line-through text-xs mr-2">₹1099</span>₹799
+          </h5>
         </div>
 
         <div class="mt-4">
           <span class="txt-color-grey text-sm">Payment Type:</span>
           <h5 class="text-xs m-0">COD (Cash on Delivery)</h5>
+        </div>
+        <div class="mt-4">
+          <span class="txt-color-grey text-sm">Quantity:</span>
+          <h5 class="text-xs m-0">
+            <p-inputNumber
+              [(ngModel)]="quantity"
+              [showButtons]="true"
+              buttonLayout="horizontal"
+              inputId="horizontal"
+              spinnerMode="horizontal"
+              [step]="1"
+              [min]="1"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+            />
+          </h5>
         </div>
       </div>
     </div>
