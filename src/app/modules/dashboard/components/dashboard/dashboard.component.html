@@ -51,7 +51,7 @@
               <img
                 *ngIf="pc == 'metalic' || pc == 'glitter'"
                 src="../../../../../assets/img/ads/{{ pc }}.png"
-                width="50"
+                width="35"
                 alt="pattern"
             /></span>
           </div>
@@ -106,7 +106,7 @@
         ><strong>Note:</strong> Sizes may rarely vary in the range of +/- 0.5
         inches.</em
       >
-      <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+      <p-table [value]="products" class="w-full p-5">
         <ng-template pTemplate="header">
           <tr>
             <th>Inches</th>
@@ -137,7 +137,7 @@
 
   <div id="tshirt" *ngIf="order.size" #ds class="mt-30">
     <div>
-      <h2 class="text-center m-0">Type your text</h2>
+      <h2 class="text-center mb-4">Type your text</h2>
       <div class="flex justify-content-center align-items-center">
         <h3 (click)="inc()" class="mr-2">A+</h3>
         <div>
