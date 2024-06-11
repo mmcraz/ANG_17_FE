@@ -35,9 +35,9 @@ export class AuthService {
 
   isLoggedInObser() {
     if (this.cookieService.get("loggedIn")) {
-      return of(true);
+      return true;
     } else {
-      return of(false);
+      return false;
     }
   }
 

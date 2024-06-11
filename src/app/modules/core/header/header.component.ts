@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
 import { Observable } from "rxjs";
+import { CookieService } from "../services/cookie.service";
 
 @Component({
   selector: "app-header",
@@ -16,12 +17,17 @@ export class HeaderComponent {
   ];
   isLoggedIn$!: Observable<boolean>;
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.isLoggedIn$ = this.authService.isLoggedInObser();
-    const info = this.authService.getUserInfo();
-    if (info) {
-      this.userInfo = info[0];
-    }
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private cookieService: CookieService
+  ) {
+    this.cookieService.watchCookie("loggedIn").subscribe((value) => {
+      let parseData = JSON.parse(value);
+      if (parseData) {
+        this.userInfo = parseData[0];
+      }
+    });
 
     // if (this.authService.isLoggedIn()) {
     //   setTimeout(() => {
@@ -38,6 +44,7 @@ export class HeaderComponent {
   }
   signOut() {
     this.authService.signOut(); // Example method from AuthService
+    window.location.reload();
   }
 
   gotoHome() {
@@ -49,5 +56,8 @@ export class HeaderComponent {
   }
   dashboard() {
     this.router.navigate(["app/home/newOrders"]);
+  }
+  gotoGallery() {
+    this.router.navigate(["app/list"]);
   }
 }

@@ -10,7 +10,8 @@ import { DatePipe } from "@angular/common";
 })
 export class DashboardComponent {
   tColors = ["white", "black", "red", "green", "royal_blue"];
-  tSizes = ["S", "M", "XL", "XXL", "XXXL"];
+  hColors = ["black", "royal_blue"];
+  tSizes = ["S", "M", "L", "XL", "XXL", "XXXL"];
   pbColors = [
     "white",
     "black",
@@ -25,6 +26,7 @@ export class DashboardComponent {
   spc = 0;
 
   order = {
+    product: "",
     model: "",
     pattern: "",
     text: "1989",
@@ -40,6 +42,8 @@ export class DashboardComponent {
   @ViewChild("pc") pc!: ElementRef;
   @ViewChild("ts") ts!: ElementRef;
   @ViewChild("ds") ds!: ElementRef;
+
+  responsiveOptions: any[] | undefined;
 
   products: any = [
     {
@@ -74,12 +78,74 @@ export class DashboardComponent {
     },
   ];
 
+  selectedProduct: any = "";
+  productsChoose = [
+    { name: "Hoodies", code: "HD" },
+    { name: "T-shirt", code: "TS" },
+    { name: "Mugs", code: "MG" },
+  ];
+  banners = [
+    {
+      id: "1000",
+      code: "f230fh0g3",
+      name: "Printed Hoodies",
+      description: "Product Description",
+      image: "hoodie.jpg",
+      price: 65,
+      category: "Accessories",
+      quantity: 24,
+      inventoryStatus: "INSTOCK",
+      rating: 5,
+    },
+    {
+      id: "1000",
+      code: "f230fh0g3",
+      name: "Printed T-shirts",
+      description: "Product Description",
+      image: "yours.jpg",
+      price: 65,
+      category: "Accessories",
+      quantity: 24,
+      inventoryStatus: "INSTOCK",
+      rating: 5,
+    },
+    {
+      id: "1000",
+      code: "f230fh0g3",
+      name: "Printed Mugs",
+      description: "Product Description",
+      image: "mug.jpg",
+      price: 65,
+      category: "Accessories",
+      quantity: 24,
+      inventoryStatus: "INSTOCK",
+      rating: 5,
+    },
+  ];
   constructor(
     private router: Router,
     private authService: AuthService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private elementRef: ElementRef
   ) {
     this.orginalTxt = this.order.text;
+    this.responsiveOptions = [
+      {
+        breakpoint: "1199px",
+        numVisible: 1,
+        numScroll: 1,
+      },
+      {
+        breakpoint: "991px",
+        numVisible: 2,
+        numScroll: 1,
+      },
+      {
+        breakpoint: "767px",
+        numVisible: 1,
+        numScroll: 1,
+      },
+    ];
   }
 
   getOnlyDate(date: Date): string {
@@ -188,5 +254,23 @@ export class DashboardComponent {
       return;
     }
     this.router.navigate(["/app/home/checkout"]);
+  }
+
+  chooseProduct(e: any) {
+    this.order.product = e.value.name;
+    setTimeout(() => {
+      if (e.value.code == "TS") {
+        const element = document.getElementById("ts");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else {
+        const element =
+          document.getElementById("hd") || document.getElementById("mg");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    });
   }
 }

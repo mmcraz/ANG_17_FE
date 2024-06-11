@@ -4,8 +4,14 @@
   </div>
   <div
     class="block flex gap-2 text-color-secondary"
-    *ngIf="!(isLoggedIn$ | async) as data"
+    *ngIf="!authService.isLoggedInObser()"
   >
+    <a
+      href="javascript:void(0)"
+      class="text-xs no-underline p-3"
+      (click)="gotoGallery()"
+      >Gallery</a
+    >
     <a
       href="javascript:void(0)"
       class="text-xs no-underline p-3"
@@ -16,9 +22,15 @@
   </div>
   <div
     class="col-6 text-right justify-content-center align-items-center"
-    *ngIf="isLoggedIn$ | async as data"
+    *ngIf="authService.isLoggedInObser()"
   >
     <div class="flex justify-content-end align-items-center">
+      <a
+        href="javascript:void(0)"
+        class="text-xs no-underline p-3"
+        (click)="gotoGallery()"
+        >Gallery</a
+      >
       <a
         href="javascript:void(0)"
         class="text-xs no-underline p-3"

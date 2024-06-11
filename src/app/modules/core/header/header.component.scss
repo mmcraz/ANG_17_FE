@@ -5,11 +5,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
   position: sticky;
   top: 0;
-  background: #fff;
-  box-shadow: 0 0 7px #ccc;
+  background: #e8a722;
+  box-shadow: 0 0 7px #000;
+  z-index: 9;
 }
 
 .logo img {

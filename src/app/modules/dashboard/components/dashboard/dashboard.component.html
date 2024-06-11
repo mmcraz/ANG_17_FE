@@ -4,38 +4,75 @@
     <span class="modern">Gifts</span>
   </div> -->
 
-  <div #tc>
-    <div
-      class="flex flex-column justify-content-center align-items-center mt-8"
+  <div class="col-12 md:col-6 justify-content-center align-items-center m-auto">
+    <p-dropdown
+      [options]="productsChoose"
+      [(ngModel)]="selectedProduct"
+      optionLabel="name"
+      placeholder="Select Product"
+      styleClass="w-full"
+      (onChange)="chooseProduct($event)"
+    />
+  </div>
+  <div class="col-12 md:col-6 justify-content-center align-items-center m-auto">
+    <p-carousel
+      [value]="banners"
+      [numVisible]="1"
+      [numScroll]="1"
+      [circular]="true"
+      [responsiveOptions]="responsiveOptions"
+      [autoplayInterval]="3000"
     >
-      <h2>Choose T-shirt Color</h2>
-      <div class="flex gap-2">
-        <div *ngFor="let tc of tColors">
-          <div [ngClass]="tc == order.model ? 'active' : ''">
-            <span class="props" [ngClass]="tc" (click)="selectedTc(tc)"> </span>
+      <ng-template let-product pTemplate="item">
+        <div>
+          <div class="mb-3">
+            <div class="relative mx-auto">
+              <img
+                src="../../../../../assets/img/ads/{{ product.image }}"
+                [alt]="product.name"
+                class="w-full border-round"
+              />
+            </div>
+            <h3 class="p-white text-center">{{ product.name }}</h3>
           </div>
         </div>
-      </div>
-      <p class="col-12 md:col-4">
-        "T-shirt color" refers to the specific shade or hue of the T-shirt's
-        fabric. T-shirts come in a wide range of colors.
-      </p>
-      <div class="mt-2">
-        <img
-          src="../../../../../assets/img/ads/tee.png"
-          alt="t-shirt"
-          width="100%"
-        />
+      </ng-template>
+    </p-carousel>
+  </div>
+  <div *ngIf="selectedProduct.code == 'TS'" id="ts">
+    <div #tc>
+      <div
+        class="flex flex-column justify-content-center align-items-center mt-8"
+      >
+        <h2>Choose T-shirt Color</h2>
+        <div class="flex gap-2">
+          <div *ngFor="let tc of tColors">
+            <div [ngClass]="tc == order.model ? 'active' : ''">
+              <span class="props" [ngClass]="tc" (click)="selectedTc(tc)">
+              </span>
+            </div>
+          </div>
+        </div>
+        <p class="col-12 md:col-4">
+          "T-shirt color" refers to the specific shade or hue of the T-shirt's
+          fabric. T-shirts come in a wide range of colors.
+        </p>
+        <div class="mt-2">
+          <img
+            src="../../../../../assets/img/ads/tee.png"
+            alt="t-shirt"
+            width="100%"
+          />
+        </div>
       </div>
     </div>
-  </div>
 
-  <div *ngIf="order.model" #pc class="mt-30 mb-30">
-    <div
-      class="flex flex-column justify-content-center align-items-center mt-8"
-    >
-      <h2>Choose Text Print Color Pattern</h2>
-      <!-- <div class="flex gap-2">
+    <div *ngIf="order.model" #pc class="mt-30 mb-30">
+      <div
+        class="flex flex-column justify-content-center align-items-center mt-8"
+      >
+        <h2>Choose Text Print Color Pattern</h2>
+        <!-- <div class="flex gap-2">
         <span
           *ngFor="let pc of pbColors"
           class="props"
@@ -44,41 +81,41 @@
         >
         </span>
       </div> -->
-      <div class="flex gap-2">
-        <div *ngFor="let pc of pbColors">
-          <div [ngClass]="'p-' + pc == order.pattern ? 'active' : ''">
-            <span class="props" [ngClass]="pc" (click)="selectedPc(pc)">
-              <img
-                *ngIf="pc == 'metalic' || pc == 'glitter'"
-                src="../../../../../assets/img/ads/{{ pc }}.png"
-                width="35"
-                alt="pattern"
-            /></span>
+        <div class="flex gap-2">
+          <div *ngFor="let pc of pbColors">
+            <div [ngClass]="'p-' + pc == order.pattern ? 'active' : ''">
+              <span class="props" [ngClass]="pc" (click)="selectedPc(pc)">
+                <img
+                  *ngIf="pc == 'metalic' || pc == 'glitter'"
+                  src="../../../../../assets/img/ads/{{ pc }}.png"
+                  width="35"
+                  alt="pattern"
+              /></span>
+            </div>
           </div>
+          <div></div>
         </div>
-        <div></div>
-      </div>
-      <p class="col-12 md:col-4">
-        Color patterns can vary widely in complexity and style, ranging from
-        simple alternating colors to intricate designs with multiple hues and
-        shades
-      </p>
-      <div class="mt-2">
-        <img
-          src="../../../../../assets/img/ads/pattern.png"
-          alt="t-shirt"
-          width="100%"
-        />
+        <p class="col-12 md:col-4">
+          Color patterns can vary widely in complexity and style, ranging from
+          simple alternating colors to intricate designs with multiple hues and
+          shades
+        </p>
+        <div class="mt-2">
+          <img
+            src="../../../../../assets/img/ads/pattern.png"
+            alt="t-shirt"
+            width="100%"
+          />
+        </div>
       </div>
     </div>
-  </div>
 
-  <div *ngIf="order.pattern" #ts class="mt-30 mb-30">
-    <div
-      class="flex flex-column justify-content-center align-items-center mt-8"
-    >
-      <h2>Choose T-shirt Size</h2>
-      <!-- <div class="flex gap-2">
+    <div *ngIf="order.pattern" #ts class="mt-30 mb-30">
+      <div
+        class="flex flex-column justify-content-center align-items-center mt-8"
+      >
+        <h2>Choose T-shirt Size</h2>
+        <!-- <div class="flex gap-2">
         <span
           *ngFor="let ts of tSizes"
           class="props bg-white"
@@ -88,142 +125,357 @@
         </span>
       </div> -->
 
-      <div class="flex gap-2">
-        <div *ngFor="let ts of tSizes">
-          <div [ngClass]="ts == order.size ? 'active' : ''">
-            <span class="props" [ngClass]="ts" (click)="selectedTs(ts)">
-              {{ ts }}
-            </span>
+        <div class="flex gap-2">
+          <div *ngFor="let ts of tSizes">
+            <div [ngClass]="ts == order.size ? 'active' : ''">
+              <span class="props" [ngClass]="ts" (click)="selectedTs(ts)">
+                {{ ts }}
+              </span>
+            </div>
           </div>
         </div>
+        <p class="col-12 md:col-4">
+          T-shirt sizes typically refer to the dimensions of the garment,
+          primarily its width and length, which determine how it fits on the
+          wearer's body
+        </p>
+        <em
+          ><strong>Note:</strong> Sizes may rarely vary in the range of +/- 0.5
+          inches.</em
+        >
+        <p-table [value]="products" class="w-full p-5">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Inches</th>
+              <th>XS</th>
+              <th>S</th>
+              <th>M</th>
+              <th>L</th>
+              <th>XL</th>
+              <th>XXL</th>
+              <th>XXXL</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+            <tr>
+              <td>{{ product.inch }}</td>
+              <td>{{ product.xs }}</td>
+              <td>{{ product.s }}</td>
+              <td>{{ product.m }}</td>
+              <td>{{ product.l }}</td>
+              <td>{{ product.xl }}</td>
+              <td>{{ product.xxl }}</td>
+              <td>{{ product.xxxl }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
       </div>
-      <p class="col-12 md:col-4">
-        T-shirt sizes typically refer to the dimensions of the garment,
-        primarily its width and length, which determine how it fits on the
-        wearer's body
-      </p>
-      <em
-        ><strong>Note:</strong> Sizes may rarely vary in the range of +/- 0.5
-        inches.</em
-      >
-      <p-table [value]="products" class="w-full p-5">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Inches</th>
-            <th>XS</th>
-            <th>S</th>
-            <th>M</th>
-            <th>L</th>
-            <th>XL</th>
-            <th>XXL</th>
-            <th>XXXL</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-product>
-          <tr>
-            <td>{{ product.inch }}</td>
-            <td>{{ product.xs }}</td>
-            <td>{{ product.s }}</td>
-            <td>{{ product.m }}</td>
-            <td>{{ product.l }}</td>
-            <td>{{ product.xl }}</td>
-            <td>{{ product.xxl }}</td>
-            <td>{{ product.xxxl }}</td>
-          </tr>
-        </ng-template>
-      </p-table>
     </div>
-  </div>
 
-  <div id="tshirt" *ngIf="order.size" #ds class="mt-30">
-    <div>
-      <h2 class="text-center mb-4">Type your text</h2>
-      <div class="flex justify-content-center align-items-center">
-        <h3 (click)="inc()" class="mr-2">A+</h3>
-        <div>
-          <input
-            type="text"
-            pInputText
-            [(ngModel)]="order.text"
-            class="p-text"
-            [maxlength]="maxLengthValue"
-            placeholder="Type your Text"
-          />
-          <span class="fs-10 block"
-            >Max. {{ maxLengthValue }} character printable</span
-          >
+    <div id="tshirt" *ngIf="order.size" #ds class="mt-30">
+      <div>
+        <h2 class="text-center mb-4">Type your text</h2>
+        <div class="flex justify-content-center align-items-center">
+          <h3 (click)="inc()" class="mr-2">A+</h3>
+          <div>
+            <input
+              type="text"
+              pInputText
+              [(ngModel)]="order.text"
+              class="p-text"
+              [maxlength]="maxLengthValue"
+              placeholder="Type your Text"
+            />
+            <span class="fs-10 block"
+              >Max. {{ maxLengthValue }} character printable</span
+            >
+          </div>
+
+          <h6 (click)="dec()" class="ml-2">A-</h6>
         </div>
 
-        <h6 (click)="dec()" class="ml-2">A-</h6>
+        <h5
+          class="flex space-ex gap-2 justify-content-center align-items-center m-0 mt-2"
+        >
+          Letter Space
+        </h5>
+        <div
+          class="flex space-ex gap-2 justify-content-center align-items-center mt-1"
+        >
+          <span
+            class="ls-10"
+            (click)="setSpace(10)"
+            [ngClass]="spc == 10 ? 'sp-active' : ''"
+            >ABCD</span
+          >
+          <span
+            class="ls-5"
+            (click)="setSpace(5)"
+            [ngClass]="spc == 5 ? 'sp-active' : ''"
+            >ABCD</span
+          >
+          <span
+            class="ls-3"
+            (click)="setSpace(3)"
+            [ngClass]="spc == 3 ? 'sp-active' : ''"
+            >ABCD</span
+          >
+          <span
+            class="ls-2"
+            (click)="setSpace(2)"
+            [ngClass]="spc == 2 ? 'sp-active' : ''"
+            >ABCD</span
+          >
+        </div>
       </div>
 
-      <h5
-        class="flex space-ex gap-2 justify-content-center align-items-center m-0 mt-2"
-      >
-        Letter Space
-      </h5>
       <div
-        class="flex space-ex gap-2 justify-content-center align-items-center mt-1"
+        class="flex flex-column justify-content-center align-items-center mt-4"
       >
-        <span
-          class="ls-10"
-          (click)="setSpace(10)"
-          [ngClass]="spc == 10 ? 'sp-active' : ''"
-          >ABCD</span
-        >
-        <span
-          class="ls-5"
-          (click)="setSpace(5)"
-          [ngClass]="spc == 5 ? 'sp-active' : ''"
-          >ABCD</span
-        >
-        <span
-          class="ls-3"
-          (click)="setSpace(3)"
-          [ngClass]="spc == 3 ? 'sp-active' : ''"
-          >ABCD</span
-        >
-        <span
-          class="ls-2"
-          (click)="setSpace(2)"
-          [ngClass]="spc == 2 ? 'sp-active' : ''"
-          >ABCD</span
-        >
-      </div>
-    </div>
-
-    <div
-      class="flex flex-column justify-content-center align-items-center mt-4"
-    >
-      <div class="relative">
-        <img
-          src="../../../../../assets/img/tee/{{ order.model }}.png"
-          height="300"
-        />
-        <h2
-          class="selectedPattern"
-          [ngClass]="order.pattern"
-          [ngStyle]="getStyle()"
-        >
-          <span [ngClass]="getSpace()">{{ order.text }}</span>
-        </h2>
-        <!-- <span class="letter-spacing"
+        <div class="relative">
+          <img
+            src="../../../../../assets/img/tee/{{ order.model }}.png"
+            height="300"
+          />
+          <h2
+            class="selectedPattern"
+            [ngClass]="order.pattern"
+            [ngStyle]="getStyle()"
+          >
+            <span [ngClass]="getSpace()">{{ order.text }}</span>
+          </h2>
+          <!-- <span class="letter-spacing"
           ><p-slider
             [(ngModel)]="order.space"
             orientation="vertical"
             (onChange)="spaceChange($event)"
           ></p-slider
         ></span> -->
-      </div>
-      <div class="relative">
-        <button
-          pButton
-          pRipple
-          label="Buy Now"
-          (click)="signIn()"
-          class="p-button-success w-full text-center mt-5 block"
-        ></button>
+        </div>
+        <div class="relative">
+          <button
+            pButton
+            pRipple
+            label="Buy Now"
+            (click)="signIn()"
+            class="p-button-success w-full text-center mt-5 block"
+          ></button>
+        </div>
       </div>
     </div>
+  </div>
+  <div *ngIf="selectedProduct.code == 'HD'" id="hd" class="text-center mt-30">
+    <div #hc>
+      <div
+        class="flex flex-column justify-content-center align-items-center mt-8"
+      >
+        <h2>Choose Hoodies Color</h2>
+        <div class="flex gap-2">
+          <div *ngFor="let hc of hColors">
+            <div [ngClass]="hc == order.model ? 'active' : ''">
+              <span class="props" [ngClass]="hc" (click)="selectedTc(hc)">
+              </span>
+            </div>
+          </div>
+        </div>
+        <p class="col-12 md:col-4">
+          "Hoodie color" refers to the specific shade or hue of the T-shirt's
+          fabric. Hoodie come in a wide range of colors.
+        </p>
+        <div class="mt-2">
+          <img
+            src="../../../../../assets/img/ads/hoodie_ban.png"
+            alt="hoodie"
+            width="100%"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="order.model" #pc class="mt-30 mb-30">
+      <div
+        class="flex flex-column justify-content-center align-items-center mt-8"
+      >
+        <h2>Choose Text Print Color Pattern</h2>
+
+        <div class="flex gap-2">
+          <div *ngFor="let pc of pbColors">
+            <div [ngClass]="'p-' + pc == order.pattern ? 'active' : ''">
+              <span class="props" [ngClass]="pc" (click)="selectedPc(pc)">
+                <img
+                  *ngIf="pc == 'metalic' || pc == 'glitter'"
+                  src="../../../../../assets/img/ads/{{ pc }}.png"
+                  width="35"
+                  alt="pattern"
+              /></span>
+            </div>
+          </div>
+          <div></div>
+        </div>
+        <p class="col-12 md:col-4">
+          Color patterns can vary widely in complexity and style, ranging from
+          simple alternating colors to intricate designs with multiple hues and
+          shades
+        </p>
+        <div class="mt-2">
+          <img
+            src="../../../../../assets/img/ads/hb.png"
+            alt="t-shirt"
+            width="100%"
+          />
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="order.pattern" #ts class="mt-30 mb-30">
+      <div
+        class="flex flex-column justify-content-center align-items-center mt-8"
+      >
+        <h2>Choose T-shirt Size</h2>
+        <!-- <div class="flex gap-2">
+        <span
+          *ngFor="let ts of tSizes"
+          class="props bg-white"
+          (click)="selectedTs(ts)"
+        >
+          {{ ts }}
+        </span>
+      </div> -->
+
+        <div class="flex gap-2">
+          <div *ngFor="let ts of tSizes">
+            <div [ngClass]="ts == order.size ? 'active' : ''">
+              <span class="props" [ngClass]="ts" (click)="selectedTs(ts)">
+                {{ ts }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <p class="col-12 md:col-4">
+          T-shirt sizes typically refer to the dimensions of the garment,
+          primarily its width and length, which determine how it fits on the
+          wearer's body
+        </p>
+        <em
+          ><strong>Note:</strong> Sizes may rarely vary in the range of +/- 0.5
+          inches.</em
+        >
+        <p-table [value]="products" class="w-full p-5">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Inches</th>
+              <th>XS</th>
+              <th>S</th>
+              <th>M</th>
+              <th>L</th>
+              <th>XL</th>
+              <th>XXL</th>
+              <th>XXXL</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-product>
+            <tr>
+              <td>{{ product.inch }}</td>
+              <td>{{ product.xs }}</td>
+              <td>{{ product.s }}</td>
+              <td>{{ product.m }}</td>
+              <td>{{ product.l }}</td>
+              <td>{{ product.xl }}</td>
+              <td>{{ product.xxl }}</td>
+              <td>{{ product.xxxl }}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <div id="tshirt" *ngIf="order.size" #ds class="mt-30">
+      <div>
+        <h2 class="text-center mb-4">Type your text</h2>
+        <div class="flex justify-content-center align-items-center">
+          <h3 (click)="inc()" class="mr-2">A+</h3>
+          <div>
+            <input
+              type="text"
+              pInputText
+              [(ngModel)]="order.text"
+              class="p-text"
+              [maxlength]="maxLengthValue"
+              placeholder="Type your Text"
+            />
+            <span class="fs-10 block"
+              >Max. {{ maxLengthValue }} character printable</span
+            >
+          </div>
+
+          <h6 (click)="dec()" class="ml-2">A-</h6>
+        </div>
+
+        <h5
+          class="flex space-ex gap-2 justify-content-center align-items-center m-0 mt-2"
+        >
+          Letter Space
+        </h5>
+        <div
+          class="flex space-ex gap-2 justify-content-center align-items-center mt-1"
+        >
+          <span
+            class="ls-10"
+            (click)="setSpace(10)"
+            [ngClass]="spc == 10 ? 'sp-active' : ''"
+            >ABCD</span
+          >
+          <span
+            class="ls-5"
+            (click)="setSpace(5)"
+            [ngClass]="spc == 5 ? 'sp-active' : ''"
+            >ABCD</span
+          >
+          <span
+            class="ls-3"
+            (click)="setSpace(3)"
+            [ngClass]="spc == 3 ? 'sp-active' : ''"
+            >ABCD</span
+          >
+          <span
+            class="ls-2"
+            (click)="setSpace(2)"
+            [ngClass]="spc == 2 ? 'sp-active' : ''"
+            >ABCD</span
+          >
+        </div>
+      </div>
+
+      <div
+        class="flex flex-column justify-content-center align-items-center mt-4"
+      >
+        <div class="relative">
+          <img
+            src="../../../../../assets/img/hoodie/{{ order.model }}.png"
+            height="300"
+            style="margin: -44px 4px -5px -24px"
+          />
+          <h2
+            class="selectedPattern"
+            [ngClass]="order.pattern"
+            [ngStyle]="getStyle()"
+          >
+            <span [ngClass]="getSpace()">{{ order.text }}</span>
+          </h2>
+        </div>
+        <div class="relative">
+          <button
+            pButton
+            pRipple
+            label="Buy Now"
+            (click)="signIn()"
+            class="p-button-success w-full text-center mt-5 block"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="selectedProduct.code == 'MG'" id="mg" class="text-center mt-30">
+    <h3>Coming Soon</h3>
   </div>
 </section>

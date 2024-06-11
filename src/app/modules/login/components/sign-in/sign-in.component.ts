@@ -134,7 +134,6 @@ export class SignInComponent {
               this.router.navigate(["/app/home/checkout"]);
               return;
             }
-
             this.router.navigate(["/app/home"]);
           }
         },
