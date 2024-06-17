@@ -1,46 +1,50 @@
 export const mugs: any[] = [
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/mugs/birthday_n.jpg",
+    title: "mug",
+    url: "../../../../../assets/img/products/mugs/calendar.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/mugs/bloody_n.jpg",
+    title: "mug",
+    url: "../../../../../assets/img/products/mugs/love.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/mugs/brother_n.jpg",
+    title: "mug",
+    url: "../../../../../assets/img/products/mugs/black.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/mugs/budha.jpg",
+    title: "mug",
+    url: "../../../../../assets/img/products/mugs/bike.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/mugs/cal.jpg",
+    title: "mug",
+    url: "../../../../../assets/img/products/mugs/heal.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/mugs/dare_n.jpg",
+    title: "mug",
+    url: "../../../../../assets/img/products/mugs/heart.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/mugs/faris_sale.jpg",
+    title: "mug",
+    url: "../../../../../assets/img/products/mugs/love_strips.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/mugs/gift_dear_n.jpg",
+    title: "mug",
+    url: "../../../../../assets/img/products/mugs/dare.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/mugs/gift_dear_w_n.jpg",
+    title: "mug",
+    url: "../../../../../assets/img/products/mugs/break.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/mugs/jusrride_n.jpg",
+    title: "mug",
+    url: "../../../../../assets/img/products/mugs/dart.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/mugs/lion.jpg",
+    title: "mug",
+    url: "../../../../../assets/img/products/mugs/loader_n.png",
+  },
+  {
+    title: "mug",
+    url: "../../../../../assets/img/products/mugs/teddy.png",
   },
 ];

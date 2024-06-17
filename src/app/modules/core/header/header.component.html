@@ -1,6 +1,8 @@
 <header class="header">
   <div class="logo">
-    <h2 style="margin: 0">mmcraz</h2>
+    <h2 style="margin: 0">
+      <a routerLink="/app/home" class="no-underline">mmcraz</a>
+    </h2>
   </div>
   <div
     class="block flex gap-2 text-color-secondary"
@@ -10,12 +12,16 @@
       href="javascript:void(0)"
       class="text-xs no-underline p-3"
       (click)="gotoGallery()"
+      routerLink="/app/list"
+      routerLinkActive="active"
       >Gallery</a
     >
     <a
       href="javascript:void(0)"
       class="text-xs no-underline p-3"
       (click)="gotoHome()"
+      routerLink="/app/home"
+      routerLinkActive="active"
       >Home</a
     >
     <p-button label="Login" [outlined]="true" (click)="signIn()"></p-button>
@@ -29,12 +35,16 @@
         href="javascript:void(0)"
         class="text-xs no-underline p-3"
         (click)="gotoGallery()"
+        routerLink="/app/list"
+        routerLinkActive="active"
         >Gallery</a
       >
       <a
         href="javascript:void(0)"
         class="text-xs no-underline p-3"
         (click)="gotoHome()"
+        routerLink="/app/home"
+        routerLinkActive="active"
         >Home</a
       >
 

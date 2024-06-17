@@ -16,30 +16,9 @@
   height: 50px;
 }
 
-nav ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-nav ul li {
-  margin-right: 20px;
-  color: #092436;
-}
-
-nav ul li:last-child {
-  margin-right: 0;
-}
-
-nav ul li a {
+a.active {
   color: #fff;
-  font-size: 0.875rem;
-  text-decoration: none;
-}
-
-nav ul li a:hover {
-  text-decoration: underline;
+  font-weight: 700;
 }
 
 .gg-profile,

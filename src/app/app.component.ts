@@ -11,4 +11,7 @@ import { LoaderService } from "./modules/core/services/loader.service";
 export class AppComponent {
   title = "mmcraz";
   constructor(public loaderService: LoaderService) {}
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 }
