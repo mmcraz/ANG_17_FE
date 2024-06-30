@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
 import { AuthService } from "../services/auth.service";
 import { Router } from "@angular/router";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { CookieService } from "../services/cookie.service";
+import { StorageService } from "../services/storage.service";
 
 @Component({
   selector: "app-header",
@@ -17,26 +18,37 @@ export class HeaderComponent {
   ];
   isLoggedIn$!: Observable<boolean>;
 
+  storageEvent: { key: string; newValue: string | null } | null = null;
+  private storageSubscription: Subscription;
+
   constructor(
     public authService: AuthService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private storageService: StorageService
   ) {
-    this.cookieService.watchCookie("loggedIn").subscribe((value) => {
-      let parseData = JSON.parse(value);
-      if (parseData) {
-        this.userInfo = parseData[0];
+    // Subscription to listen for changes in the storage service
+    this.storageSubscription = this.storageService.storageChanges.subscribe(
+      (event) => {
+        if (event && typeof event === "object" && event.newValue !== null) {
+          // Assuming event is an object with a `newValue` property that can be null
+          let newValue = event.newValue;
+
+          try {
+            // Parse the JSON string newValue if needed
+            let parseData = JSON.parse(newValue);
+
+            if (parseData) {
+              // Assuming parseData is an array, assign the first element to userInfo
+              this.userInfo = parseData[0];
+              console.log("User info updated:", this.userInfo);
+            }
+          } catch (error) {
+            console.error("Error parsing storage event data:", error);
+          }
+        }
       }
-    });
-
-    // if (this.authService.isLoggedIn()) {
-    //   setTimeout(() => {
-    //     const info = this.authService.getUserInfo();
-    //     this.userInfo = info[0];
-    //   }, 1000);
-
-    //   this.isLoggedIn = true;
-    // }
+    );
   }
 
   signIn() {
@@ -44,7 +56,7 @@ export class HeaderComponent {
   }
   signOut() {
     this.authService.signOut(); // Example method from AuthService
-    window.location.reload();
+    // window.location.reload();
   }
 
   gotoHome() {
@@ -59,5 +71,8 @@ export class HeaderComponent {
   }
   gotoGallery() {
     this.router.navigate(["app/list"]);
+  }
+  ngOnDestroy() {
+    this.storageSubscription.unsubscribe();
   }
 }

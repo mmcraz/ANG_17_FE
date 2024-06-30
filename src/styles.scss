@@ -1,5 +1,6 @@
 @import url(./assets/partials/_colors.scss);
 @import url(./assets/partials/_fonts.scss);
+@import "../node_modules/animate.css/animate.css";
 
 /* Target the scrollbar track */
 ::-webkit-scrollbar-track {
@@ -123,13 +124,6 @@ ul {
 .p-button-success {
   color: #000;
   font-weight: 700;
-}
-.p-button.p-button-outlined {
-  background-color: transparent;
-  color: #000;
-  border: 1px solid #000;
-  outline: none;
-  box-shadow: none !important;
 }
 
 .p-button.p-button-outlined:not(:disabled):active {
@@ -423,4 +417,54 @@ label {
   100% {
     transform: rotate(360deg);
   }
+}
+
+@media print {
+  body {
+    margin: 0; /* Reset margins to zero */
+    padding: 0; /* Reset padding to zero */
+    color: #000;
+  }
+
+  /* Adjust margins and padding for specific elements if needed */
+  .print-as-pdf {
+    color: #000;
+    width: 100%; /* Ensure content width spans the entire printable area */
+    overflow: auto; /* Allow content to scroll if necessary */
+  }
+}
+
+.drop-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  border: 2px dashed #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  overflow: auto;
+}
+
+.drop-container button {
+  margin-bottom: 10px;
+}
+
+.draggable-items {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.app-draggable-item {
+  margin: 10px;
+}
+
+.z-99 {
+  z-index: 99;
+}
+
+.h-300 {
+  height: 300px;
+}
+
+.right-20 {
+  right: 20px;
 }

@@ -10,12 +10,19 @@ declare let Email: any;
 export class CheckoutComponent {
   getOrder: any = [
     {
-      model: "",
+      product: "",
+      pcolor: "",
       pattern: "",
-      text: "1989",
-      fsize: 32,
-      space: 0,
-      size: "",
+      text1: "",
+      text2: "",
+      size: "XL",
+      template: "",
+      price: 0,
+      settings: {
+        f: "",
+        fs: "",
+        ls: "",
+      },
       userId: 0,
       quantity: 1,
     },
@@ -37,7 +44,6 @@ export class CheckoutComponent {
     };
   }
   placeOrder() {
-    delete this.getOrder.ps;
     this.getOrder.status = "Order Placed";
     const userInfo: any = this.authService.getUserInfo();
     this.getOrder.userId = userInfo[0]._id;

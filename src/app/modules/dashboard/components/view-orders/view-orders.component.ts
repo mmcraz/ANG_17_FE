@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../../../core/services/auth.service";
 import { Observable } from "rxjs";
 
@@ -7,13 +7,12 @@ import { Observable } from "rxjs";
   templateUrl: "./view-orders.component.html",
   styleUrl: "./view-orders.component.scss",
 })
-export class ViewOrdersComponent {
-  orderList$!: Observable<any>;
+export class ViewOrdersComponent implements OnInit {
+  orderList: any = [];
 
   refresh: boolean = false;
-  constructor(private authService: AuthService) {
-    this.getOrders();
-  }
+  constructor(private authService: AuthService) {}
+
   cancelOrder(orderId: any) {
     this.refresh = true;
     this.authService.deleteOrder(orderId).subscribe((d) => {
@@ -28,13 +27,16 @@ export class ViewOrdersComponent {
   }
 
   getOrders() {
+    //  this.orderList$ = this.authService.getOrders(userInfo[0]._id);
+  }
+  ngOnInit(): void {
+    this.getOrders();
     const userInfo = this.authService.getUserInfo();
-    this.orderList$ = this.authService.getOrders(userInfo[0]._id);
-    // this.authService.getOrders(userInfo[0]._id).subscribe((data) => {
-    //   this.refresh = false;
+    this.authService.getOrders(userInfo[0]._id).subscribe((data) => {
+      this.refresh = false;
 
-    //   console.log("Order list", data);
-    //   this.orderList = data.slice().reverse();
-    // });
+      console.log("Order list", data);
+      this.orderList = data;
+    });
   }
 }

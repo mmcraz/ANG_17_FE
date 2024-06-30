@@ -10,7 +10,7 @@ import { Location } from "@angular/common";
 })
 export class AuthService {
   private apiUrl = "https://ang-17-be.onrender.com";
-  //private apiUrl = "http://localhost:3000";
+  // private apiUrl = "http://localhost:3000";
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -30,11 +30,11 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    return !!this.cookieService.get("loggedIn");
+    return !!sessionStorage.getItem("loggedIn");
   }
 
   isLoggedInObser() {
-    if (this.cookieService.get("loggedIn")) {
+    if (sessionStorage.getItem("loggedIn")) {
       return true;
     } else {
       return false;
@@ -42,16 +42,16 @@ export class AuthService {
   }
 
   getUserInfo() {
-    const user = this.cookieService.get("loggedIn");
+    const user = sessionStorage.getItem("loggedIn");
     if (user) {
       return JSON.parse(user);
     }
   }
 
   signOut() {
-    // this.cookieService.delete("loggedIn");
-    document.cookie = "loggedIn" + "=; Max-Age=-99999999;";
+    //document.cookie = "loggedIn" + "=; Max-Age=-99999999;";
     localStorage.clear();
+    sessionStorage.clear();
     this.router.navigate(["/app/login"]);
   }
 
@@ -76,5 +76,9 @@ export class AuthService {
   }
   updateOrders(product: any) {
     return this.http.put<any>(`${this.apiUrl}/updateStatus`, product);
+  }
+
+  getUserDataDB(id: any) {
+    return this.http.get<any>(`${this.apiUrl}/getUser/${id}`);
   }
 }

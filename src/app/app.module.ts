@@ -3,7 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-
+import { ImageCropperModule } from "ngx-image-cropper";
 import { LoginComponent } from "./modules/login/login.component";
 import { CoreModule } from "./modules/core/core.module";
 import { ReactiveFormsModule } from "@angular/forms";
@@ -13,6 +13,7 @@ import { SharedModule } from "./modules/shared/shared.module";
 import { RouterModule, Scroll } from "@angular/router";
 import { LoaderService } from "./modules/core/services/loader.service";
 import { LoaderInterceptor } from "./modules/core/interceptors/http-interceptor.interceptor";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 export function scrollToTop(scrollConfig: Scroll): [number, number] {
   return [0, 0];
@@ -29,6 +30,8 @@ export function scrollToTop(scrollConfig: Scroll): [number, number] {
     ReactiveFormsModule,
     HttpClientModule,
     ToastModule,
+    DragDropModule,
+    ImageCropperModule,
     RouterModule.forRoot([], {
       scrollPositionRestoration: "enabled",
       anchorScrolling: "enabled",

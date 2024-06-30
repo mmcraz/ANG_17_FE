@@ -11,6 +11,12 @@ export const Pricings = [
     discount: 50,
     offerPrice: 499,
   },
+  {
+    product: "Mug",
+    price: 499,
+    discount: 50,
+    offerPrice: 299,
+  },
 ];
 
 // export const pricingsBottle = {

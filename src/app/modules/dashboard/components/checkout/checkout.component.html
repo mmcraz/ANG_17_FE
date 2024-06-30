@@ -5,14 +5,22 @@
   <div class="col-12 md:col-6">
     <div
       class="flex flex-column justify-content-center align-items-center mt-8"
-      *ngIf="getOrder.model"
+      *ngIf="getOrder.pcolor"
     >
       <div class="relative">
         <img
-          src="../../../../../assets/img/tee/{{ getOrder.model }}.png"
+          *ngIf="getOrder.product == 'Hoodies'"
+          src="../../../../../assets/img/hoodie/{{ getOrder.pcolor }}.png"
           height="300"
+          alt="{{ getOrder.pcolor }}"
         />
-        <!--  -->
+
+        <img
+          *ngIf="getOrder.product == 'T-shirt'"
+          src="../../../../../assets/img/tee/{{ getOrder.pcolor }}.png"
+          height="300"
+          alt="{{ getOrder.pcolor }}"
+        />
         <h2
           class="selectedPattern"
           [ngClass]="getOrder.pattern"
@@ -27,30 +35,51 @@
     <div class="flex justify-content-left align-items-center">
       <div class="block">
         <div class="mb-2">
-          <span class="txt-color-grey text-sm">T-shirt Model:</span>
-          <h5 class="m-0">{{ getOrder.model }}</h5>
+          <span class="txt-color-grey text-sm">Product:</span>
+          <h5 class="m-0">{{ getOrder.product }}</h5>
         </div>
         <div class="mb-2">
-          <span class="txt-color-grey text-sm">Pattern:</span>
-          <h5 class="m-0">{{ getOrder.pattern }}</h5>
+          <span class="txt-color-grey text-sm">Prodcut Color:</span>
+          <h5 class="m-0">{{ getOrder.pcolor }}</h5>
+        </div>
+        <div class="mb-2">
+          <span class="txt-color-grey text-sm">Template:</span>
+          <h5 class="m-0">{{ getOrder.template }}</h5>
         </div>
         <div class="mb-2">
           <span class="txt-color-grey text-sm">Size:</span>
           <h5 class="m-0">{{ getOrder.size }}</h5>
         </div>
         <div class="mb-2">
-          <span class="txt-color-grey text-sm">Print Text:</span>
-          <h5 class="m-0">{{ getOrder.text }}</h5>
+          <span class="txt-color-grey text-sm">Text 1 if any:</span>
+          <h5 class="m-0">{{ getOrder.text1 }}</h5>
         </div>
         <div class="mb-2">
-          <span class="txt-color-grey text-sm">Letter Space:</span>
-          <h5 class="m-0">{{ getOrder.space }}</h5>
+          <span class="txt-color-grey text-sm">Text 2 if any:</span>
+          <h5 class="m-0">{{ getOrder.text2 }}</h5>
+        </div>
+        <div class="mb-2">
+          <span class="txt-color-grey text-sm">Pattern:</span>
+          <h5 class="m-0">{{ getOrder.pattern }}</h5>
+        </div>
+        <div class="mb-2">
+          <span class="txt-color-grey text-sm">Settings:</span>
+          @if (getOrder.custom) {
+          <h5 class="m-0">
+            {{
+              getOrder.custom.f +
+                "/" +
+                getOrder.custom.fs +
+                "/" +
+                getOrder.custom.ls
+            }}
+          </h5>
+          }
         </div>
         <div class="mt-4">
           <span class="txt-color-grey text-sm">Price:</span>
-
           <h5 class="m-0">
-            <span class="line-through text-xs mr-2">₹1099</span>₹799
+            {{ getOrder.price }}
           </h5>
         </div>
 
@@ -84,10 +113,11 @@
     pRipple
     label="Place Order"
     (click)="placeOrder()"
-    class="p-button-success text-center block"
+    class="p-button-primary text-center block"
   ></button>
   <p-button
     label="Back"
+    severity="secondary"
     [outlined]="true"
     (click)="back()"
     class="mr-2"

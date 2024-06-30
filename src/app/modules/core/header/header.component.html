@@ -65,6 +65,7 @@
         >Your Orders</span
       >
       <span (click)="signOut()" class="text-xs cursor-pointer">Sign Out</span>
+      @if(userInfo.email === "mmc@gmail.com") {
       <hr />
       <div
         (click)="dashboard()"
@@ -72,6 +73,7 @@
       >
         Dashboard
       </div>
+      }
     </div>
   </ng-template>
 </p-overlayPanel>

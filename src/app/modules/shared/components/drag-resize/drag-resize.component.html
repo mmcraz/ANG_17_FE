@@ -1,0 +1,10 @@
+<div
+  class="draggable-item"
+  cdkDrag
+  [cdkDragBoundary]="boundary"
+  (cdkDragEnded)="onDragEnd($event)"
+>
+  <div class="item-content">
+    <button (click)="deleteItem()">x</button>
+  </div>
+</div>

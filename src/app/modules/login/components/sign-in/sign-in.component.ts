@@ -113,22 +113,17 @@ export class SignInComponent {
               detail: "Successfully Logged In",
             });
             //  this.loaderService.hide();
-            const expirationDate = new Date();
-            expirationDate.setHours(23, 59, 59, 0); // Set time to 23:59:5
-            // this.cookieService.set(
-            //   "loggedIn",
-            //   JSON.stringify(data),
-            //   expirationDate,
-            //   "/app"
-            // );
+            sessionStorage.setItem("loggedIn", JSON.stringify(data));
+            // const expirationDate = new Date();
+            //expirationDate.setHours(23, 59, 59, 0); // Set time to 23:59:5
 
-            document.cookie =
-              "loggedIn" +
-              "=" +
-              JSON.stringify(data) +
-              ";" +
-              expirationDate +
-              ";path=/app";
+            // document.cookie =
+            //   "loggedIn" +
+            //   "=" +
+            //   JSON.stringify(data) +
+            //   ";" +
+            //   expirationDate +
+            //   ";path=/app";
 
             if (localStorage.getItem("order")) {
               this.router.navigate(["/app/home/checkout"]);
@@ -142,7 +137,8 @@ export class SignInComponent {
           this.messageService.add({
             severity: "error",
             summary: "Error",
-            detail: error.error.message || error.message,
+            detail:
+              error?.error?.message || error?.message || "Something Went Wrong",
           });
         }
       );

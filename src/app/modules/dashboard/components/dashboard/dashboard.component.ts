@@ -1,9 +1,24 @@
 import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Router } from "@angular/router";
+
 import { AuthService } from "../../../core/services/auth.service";
 import { DatePipe } from "@angular/common";
 import { OverlayPanel } from "primeng/overlaypanel";
 import { Pricings } from "../../../shared/consts/pricing.const";
+
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+import {
+  Dimensions,
+  ImageCroppedEvent,
+  ImageTransform,
+} from "ngx-image-cropper";
+import { DomSanitizer } from "@angular/platform-browser";
+interface DraggableItem {
+  rotation: number;
+  x: number;
+  y: number;
+}
 
 @Component({
   selector: "app-dashboard",
@@ -30,14 +45,14 @@ export class DashboardComponent implements OnInit {
 
   order = {
     product: "",
-    model: "",
+    pcolor: "white",
     pattern: "",
     text1: "",
     text2: "",
     size: "XL",
     template: "",
     price: 0,
-    custom: {
+    settings: {
       f: "",
       fs: "",
       ls: "",
@@ -54,6 +69,7 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild("templatePanel") templatePanel!: OverlayPanel;
   @ViewChild("settingsPanel") settingsPanel!: OverlayPanel;
+  @ViewChild("printAsPdf") printAsPdf!: ElementRef;
 
   responsiveOptions: any[] | undefined;
 
@@ -96,13 +112,22 @@ export class DashboardComponent implements OnInit {
     { name: "Hoodies", code: "HD" },
     { name: "T-shirt", code: "TS" },
     { name: "Mugs", code: "MG" },
-    { name: "Water Bottle", code: "MG" },
+    // { name: "Water Bottle", code: "WB" },
+    // { name: "Caps", code: "CS" },
+    // { name: "Stickers/Labels", code: "CS" },
+    // { name: "Mouse Pads", code: "CS" },
+    // { name: "Photo Frames", code: "CS" },
+    // { name: "Gaphic Designing", code: "MG" },
+    // { name: "Photo Editing", code: "MG" },
+    // { name: "Logo Designing", code: "MG" },
+    // { name: "Web Designing", code: "MG" },
+    // { name: "Web Development", code: "MG" },
   ];
 
   banners = [
     {
       id: "1000",
-      code: "f230fh0g3",
+      code: "HD",
       name: "Printed Hoodies",
       description: "Product Description",
       image: "hoodie.png",
@@ -114,7 +139,7 @@ export class DashboardComponent implements OnInit {
     },
     {
       id: "1000",
-      code: "f230fh0g3",
+      code: "TS",
       name: "Printed T-shirts",
       description: "Product Description",
       image: "tshirt.png",
@@ -126,7 +151,7 @@ export class DashboardComponent implements OnInit {
     },
     {
       id: "1000",
-      code: "f230fh0g3",
+      code: "MG",
       name: "Printed Mugs",
       description: "Product Description",
       image: "mug.png",
@@ -138,10 +163,46 @@ export class DashboardComponent implements OnInit {
     },
     {
       id: "1000",
-      code: "f230fh0g3",
+      code: "BT",
       name: "Printed Water bottle",
       description: "Product Description",
       image: "bottle.png",
+      price: 65,
+      category: "Accessories",
+      quantity: 24,
+      inventoryStatus: "INSTOCK",
+      rating: 5,
+    },
+    {
+      id: "1000",
+      code: "SR",
+      name: "Printed Stickers/Labels",
+      description: "Product Description",
+      image: "sticker.png",
+      price: 65,
+      category: "Accessories",
+      quantity: 24,
+      inventoryStatus: "INSTOCK",
+      rating: 5,
+    },
+    {
+      id: "1000",
+      code: "MP",
+      name: "Printed Mouse Pads",
+      description: "Product Description",
+      image: "mousepad.png",
+      price: 65,
+      category: "Accessories",
+      quantity: 24,
+      inventoryStatus: "INSTOCK",
+      rating: 5,
+    },
+    {
+      id: "1000",
+      code: "CP",
+      name: "Printed Caps",
+      description: "Product Description",
+      image: "caps.png",
       price: 65,
       category: "Accessories",
       quantity: 24,
@@ -160,16 +221,19 @@ export class DashboardComponent implements OnInit {
           tTop: 70,
           tLeft: 85,
           top: 90,
-          left: 140,
+          left: 130,
           text: "Hello",
           type: 1,
           color: "#ffffff",
           size: 32,
           max: 5,
           weight: "normal",
-          width: 90,
+          width: 100,
+          tWidth: 90,
           font: "backtoschool",
           space: 0,
+          height: 100,
+          wb: "break-word",
         },
       ],
     },
@@ -182,31 +246,37 @@ export class DashboardComponent implements OnInit {
           tTop: 70,
           tLeft: 85,
           top: 90,
-          left: 140,
+          left: 130,
           text: "Hello",
           type: 1,
           color: "#ffffff",
           size: 32,
           max: 5,
           weight: "bold",
-          width: 90,
+          width: 100,
+          tWidth: 90,
           font: "",
           space: 0,
+          height: 40,
+          wb: "break-word",
         },
         {
-          tTop: 100,
+          tTop: 109,
           tLeft: 85,
-          top: 120,
-          left: 140,
+          top: 130,
+          left: 130,
           text: "mmcraz",
           type: 2,
           color: "rgb(255 200 0)",
           size: 18,
           max: 5,
           weight: "bold",
-          width: 90,
+          width: 100,
+          tWidth: 90,
           font: "",
           space: 2,
+          height: 40,
+          wb: "break-word",
         },
       ],
     },
@@ -219,17 +289,19 @@ export class DashboardComponent implements OnInit {
           tTop: 70,
           tLeft: 85,
           top: 90,
-          left: 140,
+          left: 130,
           text: "Lorem Ipsum is simply dummy text of the printing and typesetting industry",
           type: 3,
           color: "#ffffff",
           size: 12,
           max: 50,
           weight: "normal",
-          width: 90,
-          height: 90,
+          width: 100,
+          tWidth: 90,
+          height: 100,
           font: "creattion",
           space: 0,
+          wb: "break-word",
         },
       ],
     },
@@ -275,11 +347,30 @@ export class DashboardComponent implements OnInit {
   selectedFontSize = "16";
   selectedLetterSpace = 0;
 
+  imageChangedEvent: any = "";
+  croppedImage: any = "";
+  canvasRotation = 0;
+  rotation?: number;
+  translateH = 0;
+  translateV = 0;
+  scale = 1;
+  aspectRatio = 5 / 2;
+  showCropper = false;
+  containWithinAspectRatio = false;
+  transform: ImageTransform = {
+    translateUnit: "px",
+  };
+  imageURL?: string;
+  loading = false;
+  allowMoveImage = false;
+  hidden = false;
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private datePipe: DatePipe,
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private sanitizer: DomSanitizer
   ) {
     this.responsiveOptions = [
       {
@@ -305,7 +396,7 @@ export class DashboardComponent implements OnInit {
   }
 
   selectedTc(tc: string) {
-    this.order.model = tc;
+    this.order.pcolor = tc;
   }
 
   selectedPc(pc: string) {
@@ -344,19 +435,17 @@ export class DashboardComponent implements OnInit {
       this.order.pattern = "";
     }
     this.order.template = this.selectedTemplate.tName;
-    this.order.text1 = this.selectedTemplate.data[0].text;
-    this.order.text2 = this.selectedTemplate.data[1].text;
+
+    localStorage.setItem("order", JSON.stringify(this.order));
   }
   whatsApp() {
-    localStorage.setItem("order", JSON.stringify(this.order));
-
     this.whatsappOrder =
       "*" +
       encodeURIComponent(this.order.product) +
       "*%0a" +
       "%20Color%20" +
       "*" +
-      encodeURIComponent(this.order.model) +
+      encodeURIComponent(this.order.pcolor) +
       "*%0a" +
       "%20Size%20" +
       "*" +
@@ -385,11 +474,11 @@ export class DashboardComponent implements OnInit {
       "%20Settings%20" +
       "*" +
       encodeURIComponent(
-        this.order.custom.f +
+        this.order.settings.f +
           "/" +
-          this.order.custom.fs +
+          this.order.settings.fs +
           "/" +
-          this.order.custom.ls
+          this.order.settings.ls
       ) +
       "*";
 
@@ -402,7 +491,12 @@ export class DashboardComponent implements OnInit {
 
   chooseProduct(e: any) {
     this.order.product = e.value.name;
-    this.order.model = "black";
+    if (this.selectedProduct.code == "MG") {
+      this.order.pcolor = "white";
+    } else {
+      this.order.pcolor = "black";
+    }
+
     this.resetSettings();
     setTimeout(() => {
       if (e.value.code == "TS") {
@@ -412,11 +506,27 @@ export class DashboardComponent implements OnInit {
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
         }
-      } else {
+      } else if (e.value.code == "HD") {
         this.pricing = Pricings[0];
         this.order.price = this.pricing.offerPrice;
         const element =
           document.getElementById("hd") || document.getElementById("mg");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else if (e.value.code == "MG") {
+        this.pricing = Pricings[2];
+        this.order.price = this.pricing.offerPrice;
+        const element =
+          document.getElementById("hd") || document.getElementById("mg");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else {
+        this.pricing = Pricings[2];
+        this.order.price = this.pricing.offerPrice;
+        const element =
+          document.getElementById("hd") || document.getElementById("cs");
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
         }
@@ -454,24 +564,239 @@ export class DashboardComponent implements OnInit {
   }
 
   chooseFont(e: any) {
-    this.order.custom.f = "f" + e.value.code;
+    this.order.settings.f = "f" + e.value.code;
     this.selectedTemplate.data.map((d: any) => {
       d.font = e.value.code;
     });
   }
 
   chooseFontSize(e: any) {
-    this.order.custom.fs = "fs" + e.value.code;
+    this.order.settings.fs = "fs" + e.value.code;
     this.selectedTemplate.data.map((d: any) => {
       d.size = e.value.code;
     });
   }
 
   chooseLetterSpace(e: any) {
-    this.order.custom.ls = "ls" + e.value.code;
+    this.order.settings.ls = "ls" + e.value.code;
     this.selectedTemplate.data.map((d: any) => {
       d.space = e.value.code;
     });
+  }
+  editText: any;
+  editTextTwo: any;
+  displayText: any;
+  displayTextTwo: any;
+  openEditPanel() {}
+  save() {}
+
+  generatePDF() {
+    const doc = new jsPDF();
+    const content = this.printAsPdf.nativeElement;
+    // content.classList.add("border-none");
+
+    const childDivs = content.querySelectorAll("span");
+    childDivs.forEach((div: HTMLElement) => {
+      div.style.border = "none";
+    });
+
+    html2canvas(content).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const imgWidth = 210; // mm
+      const pageHeight = 295; // mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        doc.addPage();
+        doc.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      doc.save("document.pdf");
+    });
+  }
+
+  items: DraggableItem[] = []; // Typed array
+  maxItems = 5;
+  addItem() {
+    if (this.items.length < this.maxItems) {
+      this.items.push({ rotation: 0, x: 0, y: 0 });
+    } else {
+      console.log("Maximum number of items reached.");
+      // Optionally, you can display a message or handle the limitation accordingly.
+    }
+  }
+
+  deleteItem(index: number) {
+    this.items.splice(index, 1);
+  }
+
+  updatePosition(index: number, newPosition: { x: number; y: number }) {
+    this.items[index].x = newPosition.x;
+    this.items[index].y = newPosition.y;
+  }
+
+  // updateRotation(index: number, rotation: number) {
+  //   this.items[index].rotation = rotation;
+  // }
+  trackByFn(index: any, item: any) {
+    return index;
+  }
+
+  fileChangeEvent(event: any): void {
+    this.loading = true;
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(
+      event.objectUrl || event.base64 || ""
+    );
+    console.log(event);
+    if (event.objectUrl) {
+      this.order.pattern = event.objectUrl;
+    }
+  }
+
+  imageLoaded() {
+    this.showCropper = true;
+    console.log("Image loaded");
+  }
+
+  cropperReady(sourceImageDimensions: Dimensions) {
+    console.log("Cropper ready", sourceImageDimensions);
+    this.loading = false;
+  }
+
+  loadImageFailed() {
+    console.error("Load image failed");
+  }
+
+  rotateLeft() {
+    this.loading = true;
+    setTimeout(() => {
+      // Use timeout because rotating image is a heavy operation and will block the ui thread
+      this.canvasRotation--;
+      this.flipAfterRotate();
+    });
+  }
+
+  rotateRight() {
+    this.loading = true;
+    setTimeout(() => {
+      this.canvasRotation++;
+      this.flipAfterRotate();
+    });
+  }
+
+  moveLeft() {
+    this.transform = {
+      ...this.transform,
+      translateH: ++this.translateH,
+    };
+  }
+
+  moveRight() {
+    this.transform = {
+      ...this.transform,
+      translateH: --this.translateH,
+    };
+  }
+
+  moveTop() {
+    this.transform = {
+      ...this.transform,
+      translateV: ++this.translateV,
+    };
+  }
+
+  moveBottom() {
+    this.transform = {
+      ...this.transform,
+      translateV: --this.translateV,
+    };
+  }
+
+  private flipAfterRotate() {
+    const flippedH = this.transform.flipH;
+    const flippedV = this.transform.flipV;
+    this.transform = {
+      ...this.transform,
+      flipH: flippedV,
+      flipV: flippedH,
+    };
+    this.translateH = 0;
+    this.translateV = 0;
+  }
+
+  flipHorizontal() {
+    this.transform = {
+      ...this.transform,
+      flipH: !this.transform.flipH,
+    };
+  }
+
+  flipVertical() {
+    this.transform = {
+      ...this.transform,
+      flipV: !this.transform.flipV,
+    };
+  }
+
+  resetImage() {
+    this.scale = 1;
+    this.rotation = 0;
+    this.canvasRotation = 0;
+    this.transform = {
+      translateUnit: "px",
+    };
+  }
+
+  zoomOut() {
+    this.scale -= 0.1;
+    this.transform = {
+      ...this.transform,
+      scale: this.scale,
+    };
+  }
+
+  zoomIn() {
+    this.scale += 0.1;
+    this.transform = {
+      ...this.transform,
+      scale: this.scale,
+    };
+  }
+
+  toggleContainWithinAspectRatio() {
+    this.containWithinAspectRatio = !this.containWithinAspectRatio;
+  }
+
+  updateRotation() {
+    this.transform = {
+      ...this.transform,
+      rotate: this.rotation,
+    };
+  }
+
+  toggleAspectRatio() {
+    this.aspectRatio = this.aspectRatio === 4 / 3 ? 16 / 5 : 4 / 3;
+  }
+
+  rotateMugDeg: number = 0;
+
+  rotateMug() {
+    if (this.rotateMugDeg == 2) {
+      this.rotateMugDeg = 0;
+      return;
+    }
+    this.rotateMugDeg += 1;
   }
 
   ngOnInit(): void {

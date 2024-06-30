@@ -36,6 +36,33 @@
     </p-carousel>
   </div>
 
+  <!-- <div style="text-align: center; margin-bottom: 20px">
+    <button (click)="addItem()">Add Item</button>
+  </div>
+
+  <div class="boundary-container">
+    <div class="item-container" #boundary>
+      <app-drag-resize
+        *ngFor="let item of items; let i = index"
+        [rotation]="item.rotation"
+        [boundary]="boundary"
+        [x]="item.x"
+        [y]="item.y"
+        (delete)="deleteItem(i)"
+        (dragEnd)="updatePosition(i, $event)"
+        (rotationChange)="updateRotation(i, $event)"
+      ></app-drag-resize>
+    </div>
+  </div> -->
+
+  <div class="item-info" *ngFor="let item of items; let i = index">
+    <p>
+      Item {{ i + 1 }} - Rotation: {{ item.rotation }} degrees, Position: ({{
+        item.x
+      }}, {{ item.y }})
+    </p>
+  </div>
+
   <div *ngIf="selectedProduct.code == 'TS'" id="ts">
     <div id="tshirt" #ds class="mt-30 p-2">
       <div #ds class="flex justify-content-between">
@@ -49,24 +76,38 @@
         ></i>
       </div>
       <div
+        class="flex gap-2 justify-content-center"
+        style="
+          flex-direction: column;
+          align-items: center;
+          top: 300px;
+          position: relative;
+          z-index: 100;
+          right: -152px;
+        "
+      >
+        <span (click)="editPanel.toggle($event); openEditPanel()"
+          ><i class="mb-3 pi pi-pencil text-2xl text-color-secondary"></i
+        ></span>
+        <span (click)="generatePDF()"
+          ><i class="mb-3 pi pi-download text-2xl text-color-secondary"></i
+        ></span>
+      </div>
+      <div
         class="flex flex-column justify-content-center align-items-center mt-4 relative"
       >
-        <i class="click-on">Click on the text box to modify your content</i>
-        <div class="relative">
+        <i class="click-on">To add text click on Edit icon</i>
+        <div class="relative" #printAsPdf>
           <img
-            src="../../../../../assets/img/tee/{{ order.model }}.png"
+            src="../../../../../assets/img/tee/{{ order.pcolor }}.png"
             height="300"
           />
 
           <div *ngFor="let t of selectedTemplate.data" class="z-1">
             @if(t.type=="1"){
 
-            <input
-              type="text"
-              value="1"
-              maxlength="{{ t.max }}"
+            <span
               [ngClass]="selectedTemplate.tName == '01' ? order.pattern : ''"
-              [(ngModel)]="t.text"
               [ngStyle]="{
                 position: 'absolute',
                 top: t.tTop + 'px',
@@ -76,18 +117,19 @@
                 color: t.color,
                 'font-size': t.size + 'px',
                 'font-weight': t.weight,
-                width: t.width + 'px',
+                width: t.tWidth + 'px',
                 opacity: '0.7',
                 'font-family': t.font,
                 'letter-spacing': t.space + 'px',
-                'text-align': 'center'
+                'text-align': 'center',
+                height: t.height + 'px',
+                overflow: 'hidden',
+                'word-wrap': t.wb
               }"
-            />
+              >{{ order.text1 }}</span
+            >
             } @if(t.type=="2"){
-            <input
-              type="text"
-              value="2"
-              [(ngModel)]="t.text"
+            <span
               [ngClass]="selectedTemplate.tName == '01' ? order.pattern : ''"
               [ngStyle]="{
                 position: 'absolute',
@@ -98,20 +140,20 @@
                 color: t.color,
                 'font-size': t.size + 'px',
                 'font-weight': t.weight,
-                width: t.width + 'px',
+                width: t.tWidth + 'px',
                 opacity: '0.7',
                 'font-family': t.font,
                 'letter-spacing': t.space + 'px',
-                'text-align': 'center'
+                'text-align': 'center',
+                height: t.height + 'px',
+                overflow: 'hidden',
+                'word-wrap': t.wb
               }"
-            />
+              >{{ order.text2 }}</span
+            >
             } @if(t.type=="3"){
-            <textarea
-              rows="10"
-              value="3"
-              maxlength="{{ t.max }}"
+            <span
               [ngClass]="selectedTemplate.tName == '01' ? order.pattern : ''"
-              [(ngModel)]="t.text"
               [ngStyle]="{
                 position: 'absolute',
                 top: t.tTop + 'px',
@@ -121,22 +163,20 @@
                 color: t.color,
                 'font-size': t.size + 'px',
                 'font-weight': t.weight,
-                width: t.width + 'px',
+                width: t.tWidth + 'px',
                 opacity: '0.7',
                 resize: 'none',
                 'font-family': t.font,
                 overflow: 'hidden',
                 height: t.height + 'px',
                 'letter-spacing': t.space + 'px',
-                'text-align': 'center'
+                'text-align': 'center',
+                'word-wrap': t.wb
               }"
-            >
-            </textarea>
+              >{{ order.text1 }}
+            </span>
             } @if(t.type=="4"){
-            <input
-              type="text"
-              value="4"
-              [(ngModel)]="t.text"
+            <span
               [ngClass]="selectedTemplate.tName == '01' ? order.pattern : ''"
               [ngStyle]="{
                 position: 'absolute',
@@ -147,13 +187,17 @@
                 color: t.color,
                 'font-size': t.size + 'px',
                 'font-weight': t.weight,
-                width: t.width + 'px',
+                width: t.tWidth + 'px',
                 opacity: '0.7',
                 'font-family': t.font,
                 'letter-spacing': t.space + 'px',
-                'text-align': 'center'
+                'text-align': 'center',
+                height: t.height + 'px',
+                overflow: 'hidden',
+                'word-wrap': t.wb
               }"
-            />
+              >{{ order.text1 }}</span
+            >
             }
           </div>
         </div>
@@ -182,47 +226,79 @@
         ></i>
       </div>
       <div
-        class="flex flex-column justify-content-center align-items-center mt-4 relative"
+        class="flex gap-2 justify-content-center"
+        style="
+          flex-direction: column;
+          align-items: center;
+          top: 300px;
+          position: relative;
+          z-index: 100;
+          right: -152px;
+        "
       >
-        <i class="click-on">Click on the text box to modify your content</i>
-        <div class="relative">
+        <span (click)="editPanel.toggle($event); openEditPanel()"
+          ><i class="mb-3 pi pi-pencil text-2xl text-color-secondary"></i
+        ></span>
+        <span (click)="generatePDF()"
+          ><i class="mb-3 pi pi-download text-2xl text-color-secondary"></i
+        ></span>
+      </div>
+      <div
+        class="flex flex-column justify-content-center align-items-center mt-4 relative print-as-pdf"
+      >
+        <i class="click-on">To add text click on Edit icon</i>
+        <div class="relative" #printAsPdf>
+          <p
+            style="
+              color: #fff;
+              font-family: backtoschool;
+              position: relative;
+              top: 200px;
+              letter-spacing: 4px;
+            "
+          ></p>
           <img
-            src="../../../../../assets/img/hoodie/{{ order.model }}.png"
+            src="../../../../../assets/img/hoodie/{{ order.pcolor }}.png"
             height="300"
           />
 
           <div *ngFor="let t of selectedTemplate.data" class="z-1">
             @if(t.type=="1"){
 
-            <input
+            <span
+              [ngClass]="selectedTemplate.tName == '01' ? order.pattern : ''"
+              [ngStyle]="{
+                position: 'absolute',
+                top: t.top + 'px',
+                left: t.left + 'px',
+                background: 'transparent',
+                border: '1px dashed rgb(46 46 46)',
+                color: t.color,
+                'font-size': t.size + 'px',
+                'font-weight': t.weight,
+                width: t.width + 'px',
+                opacity: '0.7',
+                'font-family': t.font,
+                'letter-spacing': t.space + 'px',
+                'text-align': 'center',
+                height: t.height + 'px',
+                overflow: 'hidden',
+                'word-wrap': t.wb
+              }"
+              >{{ order.text1 }}</span
+            >
+            <!-- <input
               type="text"
               value="1"
               #myinput
               maxlength="{{ t.max }}"
               [ngClass]="selectedTemplate.tName == '01' ? order.pattern : ''"
               [(ngModel)]="t.text"
-              [ngStyle]="{
-                position: 'absolute',
-                top: t.top + 'px',
-                left: t.left + 'px',
-                background: 'transparent',
-                border: '1px dashed rgb(46 46 46)',
-                color: t.color,
-                'font-size': t.size + 'px',
-                'font-weight': t.weight,
-                width: t.width + 'px',
-                opacity: '0.7',
-                'font-family': t.font,
-                'letter-spacing': t.space + 'px',
-                'text-align': 'center'
-              }"
-            />
+              
+            /> -->
             } @if(t.type=="2"){
-            <input
-              type="text"
-              value="2"
+            <span
               [ngClass]="selectedTemplate.tName == '01' ? order.pattern : ''"
-              [(ngModel)]="t.text"
               [ngStyle]="{
                 position: 'absolute',
                 top: t.top + 'px',
@@ -236,36 +312,37 @@
                 opacity: '0.7',
                 'font-family': t.font,
                 'letter-spacing': t.space + 'px',
-                'text-align': 'center'
-              }"
-            />
-            } @if(t.type=="3"){
-            <textarea
-              rows="10"
-              value="3"
-              [ngClass]="selectedTemplate.tName == '01' ? order.pattern : ''"
-              maxlength="{{ t.max }}"
-              [(ngModel)]="t.text"
-              [ngStyle]="{
-                position: 'absolute',
-                top: t.top + 'px',
-                left: t.left + 'px',
-                background: 'transparent',
-                border: '1px dashed rgb(46 46 46)',
-                color: t.color,
-                'font-size': t.size + 'px',
-                'font-weight': t.weight,
-                width: t.width + 'px',
-                opacity: '0.7',
-                resize: 'none',
-                'font-family': t.font,
-                overflow: 'hidden',
+                'text-align': 'center',
                 height: t.height + 'px',
-                'letter-spacing': t.space + 'px',
-                'text-align': 'center'
+                overflow: 'hidden',
+                'word-wrap': t.wb
               }"
+              >{{ order.text2 }}</span
             >
-            </textarea>
+
+            } @if(t.type=="3"){
+            <span
+              [ngClass]="selectedTemplate.tName == '01' ? order.pattern : ''"
+              [ngStyle]="{
+                position: 'absolute',
+                top: t.top + 'px',
+                left: t.left + 'px',
+                background: 'transparent',
+                border: '1px dashed rgb(46 46 46)',
+                color: t.color,
+                'font-size': t.size + 'px',
+                'font-weight': t.weight,
+                width: t.width + 'px',
+                opacity: '0.7',
+                'font-family': t.font,
+                'letter-spacing': t.space + 'px',
+                'text-align': 'center',
+                height: t.height + 'px',
+                overflow: 'hidden',
+                'word-wrap': t.wb
+              }"
+              >{{ order.text1 }}</span
+            >
             } @if(t.type=="4"){
             <input
               type="text"
@@ -285,7 +362,10 @@
                 opacity: '0.7',
                 'font-family': t.font,
                 'letter-spacing': t.space + 'px',
-                'text-align': 'center'
+                'text-align': 'center',
+                height: t.height + 'px',
+                overflow: 'hidden',
+                'word-wrap': t.wb
               }"
             />
             }
@@ -310,9 +390,281 @@
       </div>
     </div>
   </div>
-  <div *ngIf="selectedProduct.code == 'MG'" id="mg" class="text-center mt-30">
-    <h3>Coming Soon</h3>
+  <div id="mg" *ngIf="selectedProduct.code == 'MG'" class="text-center mt-20">
+    <!-- <input [(ngModel)]="imageURL" placeholder="URL to load image" type="text" />
+    <br />
+    <br />
+    <button (click)="rotateLeft()">Rotate left</button>
+    <button (click)="rotateRight()">Rotate right</button>
+    <button (click)="flipHorizontal()">Flip horizontal</button>
+    <button (click)="flipVertical()">Flip vertical</button>
+    <br />
+    <br />
+    <button (click)="toggleContainWithinAspectRatio()">
+      {{
+        containWithinAspectRatio
+          ? "Fill Aspect Ratio"
+          : "Contain Within Aspect Ratio"
+      }}
+    </button>
+    <button (click)="toggleAspectRatio()">
+      Aspect ratio: {{ aspectRatio }}
+    </button>
+    <button (click)="resetImage()">Reset image</button>
+    <br />
+    <br />
+    <input
+      [(ngModel)]="rotation"
+      placeholder="Rotation"
+      type="number"
+      (ngModelChange)="updateRotation()"
+    />
+    <button (click)="zoomOut()">Zoom -</button>
+    <button (click)="zoomIn()">Zoom +</button>
+    <br />
+    <br />
+    <button (click)="moveLeft()">move left</button>
+    <button (click)="moveRight()">move right</button>
+
+    <button (click)="moveTop()">move top</button>
+    <button (click)="moveBottom()">move bottom</button>
+    <br />
+    <br />
+    <button (click)="allowMoveImage = !allowMoveImage">
+      {{ allowMoveImage ? "Disable" : "Enable" }} image panning
+    </button>
+    <button (click)="hidden = !hidden">{{ hidden ? "Show" : "Hide" }}</button>
+    <br /> -->
+    <div class="flex justify-content-end">
+      <span (click)="generatePDF()"
+        ><i
+          class="mb-3 pi pi-download text-2xl text-color-secondary absolute right-20 animate__animated animate__bounce animate__slower animate__infinite infinite"
+        ></i
+      ></span>
+    </div>
+    <div class="relative h-300 grid-center mt-8">
+      @if(rotateMugDeg == 2) {
+      <div class="left-view relative flex-1">
+        <div class="mask mug">
+          <img
+            [src]="croppedImage"
+            [style.border]="croppedImage ? '1px solid black' : 'none'"
+          />
+        </div>
+        <img
+          class="mug-placeholder"
+          src="../../../../../assets/img/mug/{{ order.pcolor + '_left' }}.png"
+          height="300"
+        />
+      </div>
+      } @if(rotateMugDeg == 1) {
+      <div class="center-view relative flex-1">
+        <div class="mask mug">
+          <img
+            [src]="croppedImage"
+            [style.border]="croppedImage ? '1px solid black' : 'none'"
+          />
+        </div>
+        <img
+          class="mug-placeholder"
+          src="../../../../../assets/img/mug/{{ order.pcolor + '_center' }}.png"
+          height="300"
+        />
+      </div>
+      } @if(rotateMugDeg == 0) {
+      <div class="right-view relative flex-1">
+        <div class="mask mug">
+          <img
+            [src]="croppedImage"
+            [style.border]="croppedImage ? '1px solid black' : 'none'"
+          />
+        </div>
+        <img
+          class="mug-placeholder"
+          src="../../../../../assets/img/mug/{{ order.pcolor }}.png"
+          height="300"
+        />
+      </div>
+      }
+
+      <div class="cropped">
+        <div #printAsPdf>
+          <h5>Cropped Image</h5>
+          <img
+            [src]="croppedImage"
+            [style.border]="croppedImage ? '1px solid black' : 'none'"
+          />
+        </div>
+      </div>
+
+      <i
+        class="mb-3 pi pi-sync text-2xl text-color-secondary absolute h-300 top-0 right-20 z-99"
+        (click)="rotateMug()"
+      ></i>
+    </div>
+
+    <div class="file-input-container mb-3 relative mt-3">
+      <label for="file-upload" class="custom-file-upload"> Upload Photo </label>
+      <input
+        id="file-upload"
+        type="file"
+        accept="image/*"
+        (change)="fileChangeEvent($event)"
+      />
+    </div>
+
+    <div class="cropper-wrapper">
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [imageURL]="imageURL"
+        [maintainAspectRatio]="true"
+        [containWithinAspectRatio]="containWithinAspectRatio"
+        [cropperMinWidth]="128"
+        [aspectRatio]="aspectRatio"
+        [onlyScaleDown]="true"
+        [canvasRotation]="canvasRotation"
+        [style.display]="showCropper ? null : 'none'"
+        [allowMoveImage]="allowMoveImage"
+        [hidden]="hidden"
+        imageAltText="Alternative image text"
+        backgroundColor="red"
+        output="blob"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady($event)"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+      <div *ngIf="loading" class="loader">Loading...</div>
+      <div
+        class="flex flex-column justify-content-center align-items-center mt-4 relative print-as-pdf"
+      >
+        <div class="relative">
+          <button
+            pButton
+            pRipple
+            label="Buy Now"
+            (click)="op.toggle($event); setOrder()"
+            class="p-button-primary w-full text-center mt-5 block"
+          ></button>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div id="bt" *ngIf="selectedProduct.code == 'pp'" class="text-center mt-20">
+    <div class="flex justify-content-end">
+      <span (click)="generatePDF()"
+        ><i
+          class="mb-3 pi pi-download text-2xl text-color-secondary absolute right-20 animate__animated animate__bounce"
+        ></i
+      ></span>
+    </div>
+    <div class="relative h-300 grid-center mt-8">
+      <div #printAsPdf></div>
+      @if(rotateMugDeg == 2) {
+      <div class="left-view relative flex-1">
+        <div class="mask bottle">
+          <img
+            [src]="croppedImage"
+            [style.border]="croppedImage ? '1px solid black' : 'none'"
+          />
+        </div>
+        <img
+          class="mug-placeholder"
+          src="../../../../../assets/img/bottle/{{
+            order.pcolor + '_left'
+          }}.png"
+          height="300"
+        />
+      </div>
+      } @if(rotateMugDeg == 1) {
+      <div class="center-view relative flex-1">
+        <div class="mask bottle">
+          <img
+            [src]="croppedImage"
+            [style.border]="croppedImage ? '1px solid black' : 'none'"
+          />
+        </div>
+        <img
+          class="mug-placeholder"
+          src="../../../../../assets/img/bottle/{{
+            order.pcolor + '_center'
+          }}.png"
+          height="300"
+        />
+      </div>
+      } @if(rotateMugDeg == 0) {
+      <div class="right-view relative flex-1">
+        <div class="mask bottle">
+          <img
+            [src]="croppedImage"
+            [style.border]="croppedImage ? '1px solid black' : 'none'"
+          />
+        </div>
+        <img
+          class="mug-placeholder"
+          src="../../../../../assets/img/bottle/{{ order.pcolor }}.png"
+          height="300"
+        />
+      </div>
+      }
+
+      <i
+        class="mb-3 pi pi-sync text-2xl text-color-secondary absolute h-300 top-0 right-20 z-99"
+        (click)="rotateMug()"
+      ></i>
+    </div>
+
+    <div class="file-input-container mb-3 relative mt-3">
+      <label for="file-upload" class="custom-file-upload"> Upload Photo </label>
+      <input
+        id="file-upload"
+        type="file"
+        accept="image/*"
+        (change)="fileChangeEvent($event)"
+      />
+    </div>
+
+    <div class="cropper-wrapper">
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [imageURL]="imageURL"
+        [maintainAspectRatio]="true"
+        [containWithinAspectRatio]="containWithinAspectRatio"
+        [cropperMinWidth]="128"
+        [aspectRatio]="aspectRatio"
+        [onlyScaleDown]="true"
+        [canvasRotation]="canvasRotation"
+        [style.display]="showCropper ? null : 'none'"
+        [allowMoveImage]="allowMoveImage"
+        [hidden]="hidden"
+        imageAltText="Alternative image text"
+        backgroundColor="red"
+        output="blob"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady($event)"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+      <div *ngIf="loading" class="loader">Loading...</div>
+      <div
+        class="flex flex-column justify-content-center align-items-center mt-4 relative print-as-pdf"
+      >
+        <div class="relative">
+          <button
+            pButton
+            pRipple
+            label="Buy Now"
+            (click)="op.toggle($event); setOrder()"
+            class="p-button-primary w-full text-center mt-5 block"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="cs" *ngIf="selectedProduct.code == 'CS'">Coming Soon</div>
 </section>
 
 <p-overlayPanel #op>
@@ -320,16 +672,16 @@
   <div>
     <div class="flex gap-2 justify-content-between">
       <strong class="text-xs">Price</strong
-      ><span class="text-xs">{{ pricing.price }}</span>
+      ><span class="text-xs">₹{{ pricing.price }}</span>
     </div>
     <div class="flex gap-2 justify-content-between">
       <strong class="text-xs">Discount({{ pricing.discount }}%)</strong
-      ><span class="text-xs">{{ pricing.offerPrice }}</span>
+      ><span class="text-xs">₹{{ pricing.offerPrice }}</span>
     </div>
     <hr />
     <div class="flex gap-2 justify-content-between mb-4">
       <strong class="text-xs">Total pay</strong
-      ><span class="text-xs">{{ pricing.offerPrice }}</span>
+      ><span class="text-xs">₹{{ pricing.offerPrice }}</span>
     </div>
   </div>
 
@@ -367,7 +719,7 @@
       <h5 class="my-1">Fabric Color</h5>
       <div class="flex gap-2">
         <div *ngFor="let hc of hColors">
-          <div [ngClass]="hc == order.model ? 'active' : 'default'">
+          <div [ngClass]="hc == order.pcolor ? 'active' : 'default'">
             <span class="props" [ngClass]="hc" (click)="selectedTc(hc)"> </span>
           </div>
         </div>
@@ -378,7 +730,7 @@
       <h5 class="my-1">Fabric Color</h5>
       <div class="flex gap-2">
         <div *ngFor="let tc of tColors">
-          <div [ngClass]="tc == order.model ? 'active' : 'default'">
+          <div [ngClass]="tc == order.pcolor ? 'active' : 'default'">
             <span class="props" [ngClass]="tc" (click)="selectedTc(tc)"> </span>
           </div>
         </div>
@@ -505,6 +857,24 @@
       class="border-yellow"
     >
       <img src="{{ t.url }}" alt="template" width="100" />
+    </div>
+  </div>
+</p-overlayPanel>
+
+<p-overlayPanel
+  #editPanel
+  [dismissable]="true"
+  [appendTo]="'body'"
+  [showCloseIcon]="true"
+  styleClass="settings"
+>
+  <div class="scrollable">
+    <div *ngFor="let t of selectedTemplate.data">
+      @if(t.type=="1" || t.type=="3") {
+      <textarea [(ngModel)]="order.text1"></textarea>
+      } @if(t.type=="2") {
+      <textarea [(ngModel)]="order.text2"></textarea>
+      }
     </div>
   </div>
 </p-overlayPanel>

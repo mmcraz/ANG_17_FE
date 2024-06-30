@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule, DatePipe } from "@angular/common";
-
+import { ImageCropperModule } from "ngx-image-cropper";
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { DashboardComponent } from "./components/dashboard/dashboard.component";
 import { SharedModule } from "../shared/shared.module";
@@ -32,6 +32,7 @@ import { DialogModule } from "primeng/dialog";
     DropdownModule,
     DialogModule,
     InputNumberModule,
+    ImageCropperModule,
   ],
   providers: [DatePipe],
 })

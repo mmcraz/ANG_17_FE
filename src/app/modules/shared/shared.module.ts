@@ -16,8 +16,10 @@ import { AvatarModule } from "primeng/avatar";
 import { GalleriaModule } from "primeng/galleria";
 import { CarouselModule } from "primeng/carousel";
 import { TagModule } from "primeng/tag";
+import { DragResizeComponent } from "./components/drag-resize/drag-resize.component";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 @NgModule({
-  declarations: [HeaderComponent, FooterComponent],
+  declarations: [HeaderComponent, FooterComponent, DragResizeComponent],
   imports: [
     CommonModule,
     SharedRoutingModule,
@@ -32,6 +34,7 @@ import { TagModule } from "primeng/tag";
     GalleriaModule,
     CarouselModule,
     TagModule,
+    DragDropModule,
   ],
   exports: [
     HeaderComponent,
@@ -48,6 +51,8 @@ import { TagModule } from "primeng/tag";
     GalleriaModule,
     CarouselModule,
     TagModule,
+    DragResizeComponent,
+    DragDropModule,
   ],
 })
 export class SharedModule {}
