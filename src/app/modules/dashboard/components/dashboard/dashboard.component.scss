@@ -176,9 +176,15 @@
     -webkit-mask-image: url("../../../../../assets/img/mug/mask_left.png"); /* Use the mask image */
     mask-image: url("../../../../../assets/img/mug/mask_left.png"); /* Standard syntax */
   }
-  &.bottle img {
-    -webkit-mask-image: url("../../../../../assets/img/bottle/mask1.png"); /* Use the mask image */
-    mask-image: url("../../../../../assets/img/bottle/mask1.png"); /* Standard syntax */
+  &.bottle {
+    img {
+      top: 89px !important;
+      width: 100%;
+      left: calc(100% - 236px) !important;
+      mask-size: 115px !important;
+      -webkit-mask-image: url("../../../../../assets/img/bottle/mask1.png"); /* Use the mask image */
+      mask-image: url("../../../../../assets/img/bottle/mask1.png"); /* Standard syntax */
+    }
   }
 }
 
@@ -204,6 +210,14 @@
       mask-image: url("../../../../../assets/img/mug/mask_center.png"); /* Standard syntax */
     }
   }
+  .mask.bottle {
+    img {
+      top: 89px !important;
+      left: calc(100% - 183px) !important;
+      mask-position: center;
+      mask-size: 35%;
+    }
+  }
 }
 
 .left-view {
@@ -212,6 +226,14 @@
     mask-position: left;
     left: calc(100% - 105px);
     rotate: -0.4deg;
+  }
+  .mask.bottle {
+    img {
+      top: 70px;
+      left: calc(100% - 84px) !important;
+      mask-position: left;
+      mask-size: 35%;
+    }
   }
 }
 

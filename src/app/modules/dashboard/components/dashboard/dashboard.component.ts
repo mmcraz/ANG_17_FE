@@ -70,6 +70,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild("templatePanel") templatePanel!: OverlayPanel;
   @ViewChild("settingsPanel") settingsPanel!: OverlayPanel;
   @ViewChild("printAsPdf") printAsPdf!: ElementRef;
+  @ViewChild("printAsPdfBottle") printAsPdfBottle!: ElementRef;
 
   responsiveOptions: any[] | undefined;
 
@@ -112,7 +113,7 @@ export class DashboardComponent implements OnInit {
     { name: "Hoodies", code: "HD" },
     { name: "T-shirt", code: "TS" },
     { name: "Mugs", code: "MG" },
-    // { name: "Water Bottle", code: "WB" },
+    { name: "Water Bottle", code: "BT" },
     // { name: "Caps", code: "CS" },
     // { name: "Stickers/Labels", code: "CS" },
     // { name: "Mouse Pads", code: "CS" },
@@ -354,7 +355,7 @@ export class DashboardComponent implements OnInit {
   translateH = 0;
   translateV = 0;
   scale = 1;
-  aspectRatio = 5 / 2;
+  aspectRatio = 16 / 5;
   showCropper = false;
   containWithinAspectRatio = false;
   transform: ImageTransform = {
@@ -493,8 +494,14 @@ export class DashboardComponent implements OnInit {
     this.order.product = e.value.name;
     if (this.selectedProduct.code == "MG") {
       this.order.pcolor = "white";
+      this.aspectRatio = 5 / 2;
     } else {
       this.order.pcolor = "black";
+    }
+
+    if (this.selectedProduct.code == "BT") {
+      this.order.pcolor = "white";
+      this.aspectRatio = 16 / 5;
     }
 
     this.resetSettings();
@@ -519,6 +526,14 @@ export class DashboardComponent implements OnInit {
         this.order.price = this.pricing.offerPrice;
         const element =
           document.getElementById("hd") || document.getElementById("mg");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else if (e.value.code == "BT") {
+        this.pricing = Pricings[2];
+        this.order.price = this.pricing.offerPrice;
+        const element =
+          document.getElementById("hd") || document.getElementById("bt");
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
         }
@@ -592,8 +607,19 @@ export class DashboardComponent implements OnInit {
 
   generatePDF() {
     const doc = new jsPDF();
-    const content = this.printAsPdf.nativeElement;
-    // content.classList.add("border-none");
+    let content;
+    if (this.selectedProduct.code == "MG") {
+      content = this.printAsPdf.nativeElement;
+    }
+
+    if (
+      this.selectedProduct.code == "BT" ||
+      this.selectedProduct.code == undefined
+    ) {
+      content = this.printAsPdfBottle.nativeElement;
+    }
+
+    content.classList.add("bg");
 
     const childDivs = content.querySelectorAll("span");
     childDivs.forEach((div: HTMLElement) => {
@@ -618,7 +644,7 @@ export class DashboardComponent implements OnInit {
         heightLeft -= pageHeight;
       }
 
-      doc.save("document.pdf");
+      doc.save("final_product.pdf");
     });
   }
 

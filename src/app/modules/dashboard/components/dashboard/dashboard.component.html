@@ -90,7 +90,9 @@
           ><i class="mb-3 pi pi-pencil text-2xl text-color-secondary"></i
         ></span>
         <span (click)="generatePDF()"
-          ><i class="mb-3 pi pi-download text-2xl text-color-secondary"></i
+          ><i
+            class="mb-3 pi pi-download text-2xl text-color-secondary cursor-pointer"
+          ></i
         ></span>
       </div>
       <div
@@ -240,7 +242,9 @@
           ><i class="mb-3 pi pi-pencil text-2xl text-color-secondary"></i
         ></span>
         <span (click)="generatePDF()"
-          ><i class="mb-3 pi pi-download text-2xl text-color-secondary"></i
+          ><i
+            class="mb-3 pi pi-download text-2xl text-color-secondary cursor-pointer"
+          ></i
         ></span>
       </div>
       <div
@@ -390,7 +394,7 @@
       </div>
     </div>
   </div>
-  <div id="mg" *ngIf="selectedProduct.code == 'MG'" class="text-center mt-20">
+  <div id="mg" *ngIf="selectedProduct.code == 'MG'" class="text-center mt-10">
     <!-- <input [(ngModel)]="imageURL" placeholder="URL to load image" type="text" />
     <br />
     <br />
@@ -438,7 +442,7 @@
     <div class="flex justify-content-end">
       <span (click)="generatePDF()"
         ><i
-          class="mb-3 pi pi-download text-2xl text-color-secondary absolute right-20 animate__animated animate__bounce animate__slower animate__infinite infinite"
+          class="mb-3 pi pi-download text-2xl text-color-secondary cursor-pointer absolute right-20 animate__animated animate__bounce animate__slower animate__infinite infinite"
         ></i
       ></span>
     </div>
@@ -489,10 +493,17 @@
 
       <div class="cropped">
         <div #printAsPdf>
-          <h5>Cropped Image</h5>
+          <h6 class="opacity-0">mmcraz</h6>
+          <h5 class="opacity-0">Final Product Preview</h5>
           <img
+            class="cropped-img"
             [src]="croppedImage"
             [style.border]="croppedImage ? '1px solid black' : 'none'"
+          />
+          <img
+            class="final-view opacity-0"
+            src="../../../../../assets/img/mug/final_view.png"
+            alt="mug"
           />
         </div>
       </div>
@@ -552,16 +563,31 @@
     </div>
   </div>
 
-  <div id="bt" *ngIf="selectedProduct.code == 'pp'" class="text-center mt-20">
+  <div id="bt" *ngIf="selectedProduct.code == 'BT'" class="text-center mt-10">
     <div class="flex justify-content-end">
       <span (click)="generatePDF()"
         ><i
-          class="mb-3 pi pi-download text-2xl text-color-secondary absolute right-20 animate__animated animate__bounce"
+          class="mb-3 pi pi-download text-2xl text-color-secondary absolute cursor-pointer right-20 animate__animated animate__bounce animate__slower animate__infinite infinite"
         ></i
       ></span>
     </div>
-    <div class="relative h-300 grid-center mt-8">
-      <div #printAsPdf></div>
+    <div class="relative grid-center mt-8">
+      <div class="cropped">
+        <div #printAsPdfBottle>
+          <h6 class="opacity-0">mmcraz</h6>
+          <h5 class="opacity-0">Final Product Preview</h5>
+          <img
+            class="cropped-img"
+            [src]="croppedImage"
+            [style.border]="croppedImage ? '1px solid black' : 'none'"
+          />
+          <img
+            class="final-view opacity-0"
+            src="../../../../../assets/img/bottle/final_view.png"
+            alt="mug"
+          />
+        </div>
+      </div>
       @if(rotateMugDeg == 2) {
       <div class="left-view relative flex-1">
         <div class="mask bottle">
@@ -572,10 +598,8 @@
         </div>
         <img
           class="mug-placeholder"
-          src="../../../../../assets/img/bottle/{{
-            order.pcolor + '_left'
-          }}.png"
-          height="300"
+          src="..../../../../../assets/img/bottle/white_left.png"
+          height="330"
         />
       </div>
       } @if(rotateMugDeg == 1) {
@@ -586,12 +610,11 @@
             [style.border]="croppedImage ? '1px solid black' : 'none'"
           />
         </div>
+
         <img
           class="mug-placeholder"
-          src="../../../../../assets/img/bottle/{{
-            order.pcolor + '_center'
-          }}.png"
-          height="300"
+          src=".../../../../../assets/img/bottle/white_center.png"
+          height="330"
         />
       </div>
       } @if(rotateMugDeg == 0) {
@@ -605,7 +628,7 @@
         <img
           class="mug-placeholder"
           src="../../../../../assets/img/bottle/{{ order.pcolor }}.png"
-          height="300"
+          height="330"
         />
       </div>
       }
