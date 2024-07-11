@@ -186,10 +186,23 @@
       mask-image: url("../../../../../assets/img/bottle/mask1.png"); /* Standard syntax */
     }
   }
+  &.mp {
+    width: 279px !important;
+    img {
+      top: 7px !important;
+      width: 100%;
+      left: calc(100% - 274px) !important;
+      mask-size: 100% !important;
+      height: 319px !important;
+      -webkit-mask-image: url("../../../../../assets/img/mousepad/mask2.png"); /* Use the mask image */
+      mask-image: url("../../../../../assets/img/mousepad/mask2.png"); /* Standard syntax */
+    }
+  }
 }
 
 .mask.mug + img,
-.mask.bottle + img {
+.mask.bottle + img,
+.mask.mp + img {
   position: relative;
   top: 0;
 }

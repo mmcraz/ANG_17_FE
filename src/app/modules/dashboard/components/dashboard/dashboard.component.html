@@ -573,9 +573,7 @@
     </div>
     <div class="relative grid-center mt-8">
       <div class="cropped">
-        <div #printAsPdfBottle>
-          <h6 class="opacity-0">mmcraz</h6>
-          <h5 class="opacity-0">Final Product Preview</h5>
+        <div>
           <img
             class="cropped-img"
             [src]="croppedImage"
@@ -589,6 +587,135 @@
         </div>
       </div>
       @if(rotateMugDeg == 2) {
+      <div class="left-view relative flex-1">
+        <div #printAsPdfBottle>
+          <div class="mask bottle">
+            @if(croppedImage) {
+            <img
+              [src]="croppedImage"
+              [style.border]="croppedImage ? '1px solid black' : 'none'"
+            />
+            }
+          </div>
+          <img
+            class="mug-placeholder"
+            src="..../../../../../assets/img/bottle/white_left.png"
+            height="330"
+          />
+        </div>
+      </div>
+      } @if(rotateMugDeg == 1) {
+      <div class="center-view relative flex-1">
+        <div #printAsPdfBottle>
+          <div class="mask bottle">
+            @if(croppedImage) {
+            <img
+              [src]="croppedImage"
+              [style.border]="croppedImage ? '1px solid black' : 'none'"
+            />
+            }
+          </div>
+
+          <img
+            class="mug-placeholder"
+            src=".../../../../../assets/img/bottle/white_center.png"
+            height="330"
+          />
+        </div>
+      </div>
+      } @if(rotateMugDeg == 0) {
+      <div class="right-view relative flex-1">
+        <div #printAsPdfBottle>
+          <div class="mask bottle">
+            @if(croppedImage) {
+            <img
+              [src]="croppedImage"
+              [style.border]="croppedImage ? '1px solid black' : 'none'"
+            />
+            }
+          </div>
+          <img
+            class="mug-placeholder"
+            src="../../../../../assets/img/bottle/{{ order.pcolor }}.png"
+            height="330"
+          />
+        </div>
+      </div>
+      }
+
+      <i
+        class="mb-3 pi pi-sync text-2xl text-color-secondary absolute h-300 top-0 right-20 z-99"
+        (click)="rotateMug()"
+      ></i>
+    </div>
+
+    <div class="file-input-container mb-3 relative mt-3">
+      <label for="file-upload" class="custom-file-upload"> Upload Photo </label>
+      <input
+        id="file-upload"
+        type="file"
+        accept="image/*"
+        (change)="fileChangeEvent($event)"
+      />
+    </div>
+
+    <div class="cropper-wrapper">
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [imageURL]="imageURL"
+        [maintainAspectRatio]="true"
+        [containWithinAspectRatio]="containWithinAspectRatio"
+        [cropperMinWidth]="128"
+        [aspectRatio]="aspectRatio"
+        [onlyScaleDown]="true"
+        [canvasRotation]="canvasRotation"
+        [style.display]="showCropper ? null : 'none'"
+        [allowMoveImage]="allowMoveImage"
+        [hidden]="hidden"
+        imageAltText="Alternative image text"
+        backgroundColor="red"
+        output="blob"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady($event)"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+      <div *ngIf="loading" class="loader">Loading...</div>
+      <div
+        class="flex flex-column justify-content-center align-items-center mt-4 relative print-as-pdf"
+      >
+        <div class="relative">
+          <button
+            pButton
+            pRipple
+            label="Buy Now"
+            (click)="op.toggle($event); setOrder()"
+            class="p-button-primary w-full text-center mt-5 block"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="mp" *ngIf="selectedProduct.code == 'MP'" class="text-center mt-10">
+    <div class="flex justify-content-end">
+      <span (click)="generatePDF()"
+        ><i
+          class="mb-3 pi pi-download text-2xl text-color-secondary absolute cursor-pointer right-20 animate__animated animate__bounce animate__slower animate__infinite infinite"
+        ></i
+      ></span>
+    </div>
+    <div class="relative grid-center mt-8">
+      <div class="cropped">
+        <div>
+          <img
+            class="cropped-img"
+            [src]="croppedImage"
+            [style.border]="croppedImage ? '1px solid black' : 'none'"
+          />
+        </div>
+      </div>
+      <!-- @if(rotateMugDeg == 2) {
       <div class="left-view relative flex-1">
         <div class="mask bottle">
           <img
@@ -617,26 +744,28 @@
           height="330"
         />
       </div>
-      } @if(rotateMugDeg == 0) {
-      <div class="right-view relative flex-1">
-        <div class="mask bottle">
+      } @if(rotateMugDeg == 0) { -->
+      <div #printAsPdfMouse>
+        <div class="mask mp">
+          @if(croppedImage) {
           <img
             [src]="croppedImage"
             [style.border]="croppedImage ? '1px solid black' : 'none'"
           />
+          }
         </div>
         <img
           class="mug-placeholder"
-          src="../../../../../assets/img/bottle/{{ order.pcolor }}.png"
+          src="../../../../../assets/img/mousepad/white.png"
           height="330"
         />
       </div>
-      }
+      <!-- } -->
 
-      <i
+      <!-- <i
         class="mb-3 pi pi-sync text-2xl text-color-secondary absolute h-300 top-0 right-20 z-99"
         (click)="rotateMug()"
-      ></i>
+      ></i> -->
     </div>
 
     <div class="file-input-container mb-3 relative mt-3">

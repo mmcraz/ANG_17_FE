@@ -71,6 +71,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild("settingsPanel") settingsPanel!: OverlayPanel;
   @ViewChild("printAsPdf") printAsPdf!: ElementRef;
   @ViewChild("printAsPdfBottle") printAsPdfBottle!: ElementRef;
+  @ViewChild("printAsPdfMouse") printAsPdfMouse!: ElementRef;
 
   responsiveOptions: any[] | undefined;
 
@@ -116,7 +117,7 @@ export class DashboardComponent implements OnInit {
     { name: "Water Bottle", code: "BT" },
     // { name: "Caps", code: "CS" },
     // { name: "Stickers/Labels", code: "CS" },
-    // { name: "Mouse Pads", code: "CS" },
+    { name: "Mouse Pads", code: "MP" },
     // { name: "Photo Frames", code: "CS" },
     // { name: "Gaphic Designing", code: "MG" },
     // { name: "Photo Editing", code: "MG" },
@@ -501,7 +502,12 @@ export class DashboardComponent implements OnInit {
 
     if (this.selectedProduct.code == "BT") {
       this.order.pcolor = "white";
-      this.aspectRatio = 16 / 5;
+      this.aspectRatio = 23 / 18;
+    }
+
+    if (this.selectedProduct.code == "MP") {
+      this.order.pcolor = "white";
+      this.aspectRatio = 9 / 9;
     }
 
     this.resetSettings();
@@ -533,7 +539,15 @@ export class DashboardComponent implements OnInit {
         this.pricing = Pricings[2];
         this.order.price = this.pricing.offerPrice;
         const element =
-          document.getElementById("hd") || document.getElementById("bt");
+          document.getElementById("bt") || document.getElementById("bt");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else if (e.value.code == "MP") {
+        this.pricing = Pricings[2];
+        this.order.price = this.pricing.offerPrice;
+        const element =
+          document.getElementById("mp") || document.getElementById("mp");
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
         }
@@ -617,6 +631,13 @@ export class DashboardComponent implements OnInit {
       this.selectedProduct.code == undefined
     ) {
       content = this.printAsPdfBottle.nativeElement;
+    }
+
+    if (
+      this.selectedProduct.code == "MP" ||
+      this.selectedProduct.code == undefined
+    ) {
+      content = this.printAsPdfMouse.nativeElement;
     }
 
     content.classList.add("bg");
