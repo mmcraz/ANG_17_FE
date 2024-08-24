@@ -9,8 +9,8 @@ import { Location } from "@angular/common";
   providedIn: "root",
 })
 export class AuthService {
-  // private apiUrl = "https://ang-17-be.onrender.com";
-  private apiUrl = "http://localhost:3000";
+  private apiUrl = "https://ang-17-be.onrender.com";
+  //private apiUrl = "http://localhost:3000";
   constructor(
     private http: HttpClient,
     private router: Router,

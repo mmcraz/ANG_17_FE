@@ -163,14 +163,25 @@ export class SignInComponent {
         password: this.signUpForm.value.password,
         confirmPassword: this.signUpForm.value.confirmPassword,
         phone: this.signUpForm.value.phone,
+        pin: this.signUpForm.value.pin,
       };
       // Process login form submission
-      this.authService.signUp(userInfo).subscribe((data) => {
-        console.log("signUpForm form submitted:", this.signUpForm.value);
-        this.signUpFn();
-        // localStorage.setItem('token', data)
-        // this.router.navigate(['/app/dashboard'])
-      });
+      this.authService.signUp(userInfo).subscribe(
+        (data) => {
+          console.log("signUpForm form submitted:", this.signUpForm.value);
+          this.signUpFn();
+          // localStorage.setItem('token', data)
+          // this.router.navigate(['/app/dashboard'])
+        },
+        (error) => {
+          // Handle the error
+          this.messageService.add({
+            severity: "error",
+            summary: "Error",
+            detail: error.error.message,
+          });
+        }
+      );
     } else {
       // Mark all form fields as touched to display validation messages
       this.signUpForm.markAllAsTouched();
