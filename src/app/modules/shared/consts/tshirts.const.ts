@@ -1,86 +1,35 @@
 export const tshirts: any[] = [
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/dongiveup.jpg",
+    title: "T-shirt",
+    url: "../../../../../assets/img/products/tee/t1.png",
+  },
+
+  {
+    title: "T-shirt",
+    url: "../../../../../assets/img/products/tee/t2.png",
+  },
+
+  {
+    title: "T-shirt",
+    url: "../../../../../assets/img/products/tee/t3.png",
+  },
+
+  {
+    title: "T-shirt",
+    url: "../../../../../assets/img/products/tee/t4.png",
+  },
+
+  {
+    title: "T-shirt",
+    url: "../../../../../assets/img/products/tee/t5.png",
+  },
+
+  {
+    title: "T-shirt",
+    url: "../../../../../assets/img/products/tee/t6.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/25.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/awesome.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/bangalore.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/beat.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/bike.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/bs.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/captain.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/flight.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/hello.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/icon.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/jeep.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/johny.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/leo.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/mic.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/mountain.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/strong.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/tiger.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/topline.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/ui.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/tee/yours.jpg",
+    title: "T-shirt",
+    url: "../../../../../assets/img/products/tee/t7.png",
   },
 ];

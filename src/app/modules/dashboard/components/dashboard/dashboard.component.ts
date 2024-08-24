@@ -440,7 +440,21 @@ export class DashboardComponent implements OnInit {
 
     localStorage.setItem("order", JSON.stringify(this.order));
   }
+
   whatsApp() {
+    const formData = new FormData();
+    formData.append("userId", "1");
+    formData.append("fileName", this.fileName);
+    formData.append("image", this.uploadImage);
+
+    this.authService.upload(formData).subscribe(
+      (response) => {
+        console.log("Image sent to WhatsApp:", response);
+      },
+      (error) => {
+        console.error("Error sending image:", error);
+      }
+    );
     this.whatsappOrder =
       "*" +
       encodeURIComponent(this.order.product) +
@@ -469,9 +483,9 @@ export class DashboardComponent implements OnInit {
       "*" +
       encodeURIComponent(this.order.pattern) +
       "*%0a" +
-      "%20Final Price%20" +
+      "%20Price%20" +
       "*" +
-      encodeURIComponent(this.order.price) +
+      "The latest offers and prices will be shared shortly " +
       "*%0a" +
       "%20Settings%20" +
       "*" +
@@ -695,17 +709,19 @@ export class DashboardComponent implements OnInit {
   trackByFn(index: any, item: any) {
     return index;
   }
-
+  public fileName: string = "";
   fileChangeEvent(event: any): void {
     this.loading = true;
     this.imageChangedEvent = event;
+    this.fileName = event.target.files[0].name;
   }
-
+  private uploadImage: any;
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = this.sanitizer.bypassSecurityTrustUrl(
       event.objectUrl || event.base64 || ""
     );
-    console.log(event);
+
+    this.uploadImage = event.blob;
     if (event.objectUrl) {
       this.order.pattern = event.objectUrl;
     }

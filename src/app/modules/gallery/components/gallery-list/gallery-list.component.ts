@@ -2,6 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { tshirts } from "../../../shared/consts/tshirts.const";
 import { hoodies } from "../../../shared/consts/hoodies.const";
 import { mugs } from "../../../shared/consts/mugs.const";
+import { bottles } from "../../../shared/consts/bottle";
+import { pads } from "../../../shared/consts/pads";
 
 @Component({
   selector: "app-gallery-list",
@@ -13,6 +15,9 @@ export class GalleryListComponent implements OnInit {
   tshirts: any[] = [];
   hoodies: any[] = [];
   mugs: any[] = [];
+  bottles: any[] = [];
+  pads: any[] = [];
+
   responsiveOptions = [
     {
       breakpoint: "1024px",
@@ -33,5 +38,7 @@ export class GalleryListComponent implements OnInit {
     this.tshirts = tshirts;
     this.hoodies = hoodies;
     this.mugs = mugs;
+    this.bottles = bottles;
+    this.pads = pads;
   }
 }

@@ -1,82 +1,38 @@
 export const hoodies: any[] = [
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/bs.jpg",
+    title: "Hoodie",
+    url: "../../../../../assets/img/products/hoodies/h1.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/atluntadhi.jpg",
+    title: "Hoodie",
+    url: "../../../../../assets/img/products/hoodies/h2.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/chess.jpg",
+    title: "Hoodie",
+    url: "../../../../../assets/img/products/hoodies/h3.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/habit.jpg",
+    title: "Hoodie",
+    url: "../../../../../assets/img/products/hoodies/h4.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/jai.jpg",
+    title: "Hoodie",
+    url: "../../../../../assets/img/products/hoodies/h5.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/jeep.jpg",
+    title: "Hoodie",
+    url: "../../../../../assets/img/products/hoodies/h6.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/master.jpg",
+    title: "Hoodie",
+    url: "../../../../../assets/img/products/hoodies/h7.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/mind.jpg",
+    title: "Hoodie",
+    url: "../../../../../assets/img/products/hoodies/h8.png",
   },
   {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/modd.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/jeepb.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/jeepb.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/night.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/salar.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/smaile.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/smileb.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/spider.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/titanix.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/tom.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/vintage.jpg",
-  },
-  {
-    title: "Lion",
-    url: "../../../../../assets/img/products/hoodies/vintageb.jpg",
+    title: "Hoodie",
+    url: "../../../../../assets/img/products/hoodies/h9.png",
   },
 ];

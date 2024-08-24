@@ -84,6 +84,24 @@
         />
       </div>
       <div class="field">
+        <label for="phone">Address Line 1</label>
+        <input
+          type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          pInputText
+          formControlName="addressOne"
+        />
+      </div>
+      <div class="field">
+        <label for="phone">Address Line 2</label>
+        <input
+          type="text"
+          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
+          pInputText
+          formControlName="addressTwo"
+        />
+      </div>
+      <div class="field">
         <label for="email">Email</label>
         <input
           type="text"
@@ -121,25 +139,8 @@
           formControlName="confirmPassword"
         />
       </div>
-      <div class="field">
-        <label for="phone">Address 1</label>
-        <input
-          type="text"
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
-          pInputText
-          formControlName="addressOne"
-        />
-      </div>
-      <div class="field">
-        <label for="phone">Address 2</label>
-        <input
-          type="text"
-          class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focusborder-primary w-full"
-          pInputText
-          formControlName="addressTwo"
-        />
-      </div>
-      <div class="field">
+
+      <!-- <div class="field">
         <label for="phone">City</label>
         <input
           type="text"
@@ -156,7 +157,7 @@
           pInputText
           formControlName="state"
         />
-      </div>
+      </div> -->
 
       <div class="field">
         <label for="phone">PIN Code.</label>
@@ -184,12 +185,15 @@
           Invalid contact number
         </div>
       </div>
-
+      <re-captcha
+        (resolved)="onCaptchaResolved($event)"
+        siteKey="6LeXLS4qAAAAAHheIWL9TtNXPenIO3wn2GfXPQ4R"
+      ></re-captcha>
       <button
         pButton
         pRipple
         type="submit"
-        [disabled]="signUpForm.invalid"
+        [disabled]="signUpForm.invalid || !captchaResolved"
         class="p-button-primary w-full text-center mt-5 block"
       >
         SignUp

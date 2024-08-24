@@ -22,6 +22,8 @@ export class SignInComponent {
   loginForm: FormGroup;
   signUpForm: FormGroup;
   signUp: boolean = false;
+  captchaResponse: string = "";
+  captchaResolved: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,8 +46,8 @@ export class SignInComponent {
         password: ["", Validators.required],
         addressOne: ["", Validators.required],
         addressTwo: ["", Validators.required],
-        city: ["", Validators.required],
-        state: ["", Validators.required],
+        // city: ["", Validators.required],
+        // state: ["", Validators.required],
         pin: [
           "",
           [
@@ -153,7 +155,7 @@ export class SignInComponent {
     this.resetForm();
   }
   onSubmitSignUp() {
-    if (this.signUpForm.valid) {
+    if (this.signUpForm.valid && this.captchaResponse) {
       const userInfo = {
         firstName: this.signUpForm.value.firstName,
         lastName: this.signUpForm.value.lastName,
@@ -173,5 +175,23 @@ export class SignInComponent {
       // Mark all form fields as touched to display validation messages
       this.signUpForm.markAllAsTouched();
     }
+  }
+
+  onCaptchaResolved(captchaResponse: any) {
+    if (!captchaResponse) {
+      this.captchaResolved = false;
+    }
+
+    this.captchaResponse = captchaResponse;
+
+    let tokenDetails = {
+      token: captchaResponse,
+    };
+
+    this.authService.getverifyCaptcha(tokenDetails).subscribe((res) => {
+      if (res.success) {
+        this.captchaResolved = !!captchaResponse;
+      }
+    });
   }
 }

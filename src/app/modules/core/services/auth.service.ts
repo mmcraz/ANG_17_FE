@@ -9,8 +9,8 @@ import { Location } from "@angular/common";
   providedIn: "root",
 })
 export class AuthService {
-  private apiUrl = "https://ang-17-be.onrender.com";
-  // private apiUrl = "http://localhost:3000";
+  // private apiUrl = "https://ang-17-be.onrender.com";
+  private apiUrl = "http://localhost:3000";
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -27,6 +27,14 @@ export class AuthService {
 
   signUp(user: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/signUp`, user);
+  }
+
+  upload(data: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/upload`, data);
+  }
+
+  getImage(name: any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/image?${name}`);
   }
 
   isLoggedIn(): boolean {
@@ -80,5 +88,9 @@ export class AuthService {
 
   getUserDataDB(id: any) {
     return this.http.get<any>(`${this.apiUrl}/getUser/${id}`);
+  }
+
+  getverifyCaptcha(data: any) {
+    return this.http.post<any>(`${this.apiUrl}/verifyCaptcha`, data);
   }
 }

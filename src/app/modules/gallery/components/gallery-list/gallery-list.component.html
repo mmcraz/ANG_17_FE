@@ -1,17 +1,54 @@
 <div class="container grid wrap">
   <div class="card w-full">
     <p-tabView styleClass="tabview-custom">
+      <p-tabPanel header="Header II">
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center gap-2">
+            <p-avatar
+              image="../../../../../assets/img/products/hoodies/h8.png"
+              shape="circle"
+            />
+            <span class="font-bold white-space-nowrap m-0 p-white">
+              Hoodies
+            </span>
+            <!-- <p-badge value="{{ hoodies.length }}" /> -->
+          </div>
+        </ng-template>
+        <div class="col-12 grid block">
+          <p-carousel
+            [value]="hoodies"
+            [numVisible]="1"
+            [numScroll]="1"
+            [circular]="true"
+            [autoplayInterval]="3000"
+          >
+            <ng-template let-product pTemplate="item">
+              <div>
+                <div class="mb-3">
+                  <div class="relative mx-auto">
+                    <img
+                      src="../../../../../assets/img/ads/{{ product.url }}"
+                      [alt]="product.name"
+                      class="w-full border-round"
+                    />
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </p-carousel>
+        </div>
+      </p-tabPanel>
       <p-tabPanel>
         <ng-template pTemplate="header">
           <div class="flex align-items-center gap-2">
             <p-avatar
-              image="../../../../../assets/img/tee/green.png"
+              image="../../../../../assets/img/products/tee/t1.png"
               shape="circle"
             />
             <span class="font-bold white-space-nowrap m-0 p-white"
               >T-shirts
             </span>
-            <p-badge value="{{ tshirts.length }}" />
+            <!-- <p-badge value="{{ tshirts.length }}" /> -->
           </div>
         </ng-template>
 
@@ -54,22 +91,20 @@
           </p-galleria> -->
         </div>
       </p-tabPanel>
-      <p-tabPanel header="Header II">
+      <p-tabPanel header="Header III">
         <ng-template pTemplate="header">
           <div class="flex align-items-center gap-2">
             <p-avatar
-              image="../../../../../assets/img/tee/hoodie.jpg"
+              image="../../../../../assets/img/products/mugs/m5.png"
               shape="circle"
             />
-            <span class="font-bold white-space-nowrap m-0 p-white">
-              Hoodies
-            </span>
-            <p-badge value="{{ hoodies.length }}" />
+            <span class="font-bold white-space-nowrap m-0 p-white"> Mugs </span>
+            <!-- <p-badge value="{{ mugs.length }}" /> -->
           </div>
         </ng-template>
         <div class="col-12 grid block">
           <p-carousel
-            [value]="hoodies"
+            [value]="mugs"
             [numVisible]="1"
             [numScroll]="1"
             [circular]="true"
@@ -89,22 +124,91 @@
               </div>
             </ng-template>
           </p-carousel>
+          <!-- <p-galleria
+            [value]="mugs"
+            [responsiveOptions]="responsiveOptions"
+            [numVisible]="5"
+            [containerStyle]="{ 'max-width': '100%' }"
+          >
+            <ng-template pTemplate="item" let-item>
+              <img [src]="item.url" style="width: 100%" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+              <div class="grid grid-nogutter justify-content-center">
+                <img [src]="item.url" width="50px" />
+              </div>
+            </ng-template>
+          </p-galleria> -->
         </div>
       </p-tabPanel>
-      <p-tabPanel header="Header III">
+      <p-tabPanel header="Header IV">
         <ng-template pTemplate="header">
           <div class="flex align-items-center gap-2">
             <p-avatar
-              image="../../../../../assets/img/tee/mug.png"
+              image="../../../../../assets/img/products/bottle/b1.png"
               shape="circle"
             />
-            <span class="font-bold white-space-nowrap m-0 p-white"> Mugs </span>
-            <p-badge value="{{ mugs.length }}" />
+            <span class="font-bold white-space-nowrap m-0 p-white">
+              Water Bottle
+            </span>
+            <!-- <p-badge value="{{ bottles.length }}" /> -->
           </div>
         </ng-template>
         <div class="col-12 grid block">
           <p-carousel
+            [value]="bottles"
+            [numVisible]="1"
+            [numScroll]="1"
+            [circular]="true"
+            [autoplayInterval]="3000"
+          >
+            <ng-template let-product pTemplate="item">
+              <div>
+                <div class="mb-3">
+                  <div class="relative mx-auto">
+                    <img
+                      src="../../../../../assets/img/ads/{{ product.url }}"
+                      [alt]="product.name"
+                      class="w-full border-round"
+                    />
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </p-carousel>
+          <!-- <p-galleria
             [value]="mugs"
+            [responsiveOptions]="responsiveOptions"
+            [numVisible]="5"
+            [containerStyle]="{ 'max-width': '100%' }"
+          >
+            <ng-template pTemplate="item" let-item>
+              <img [src]="item.url" style="width: 100%" />
+            </ng-template>
+            <ng-template pTemplate="thumbnail" let-item>
+              <div class="grid grid-nogutter justify-content-center">
+                <img [src]="item.url" width="50px" />
+              </div>
+            </ng-template>
+          </p-galleria> -->
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Header V">
+        <ng-template pTemplate="header">
+          <div class="flex align-items-center gap-2">
+            <p-avatar
+              image="../../../../../assets/img/products/pads/1.png"
+              shape="circle"
+            />
+            <span class="font-bold white-space-nowrap m-0 p-white">
+              Mouse Pads
+            </span>
+            <!-- <p-badge value="{{ bottles.length }}" /> -->
+          </div>
+        </ng-template>
+        <div class="col-12 grid block">
+          <p-carousel
+            [value]="pads"
             [numVisible]="1"
             [numScroll]="1"
             [circular]="true"

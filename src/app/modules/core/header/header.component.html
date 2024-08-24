@@ -1,7 +1,7 @@
 <header class="header">
   <div class="logo">
     <h2 style="margin: 0">
-      <a routerLink="/app/home" class="no-underline">mmcraz</a>
+      <a routerLink="/app/home" class="no-underline letter-space-4">mmcraz</a>
     </h2>
   </div>
   <div
@@ -24,7 +24,12 @@
       routerLinkActive="active"
       >Home</a
     >
-    <p-button label="Login" [outlined]="true" (click)="signIn()"></p-button>
+    <p-button
+      label="Login"
+      severity="secondary"
+      [outlined]="true"
+      (click)="signIn()"
+    ></p-button>
   </div>
   <div
     class="col-6 text-right justify-content-center align-items-center"

@@ -14,6 +14,15 @@ import { RouterModule, Scroll } from "@angular/router";
 import { LoaderService } from "./modules/core/services/loader.service";
 import { LoaderInterceptor } from "./modules/core/interceptors/http-interceptor.interceptor";
 import { DragDropModule } from "@angular/cdk/drag-drop";
+import {
+  RECAPTCHA_SETTINGS,
+  RecaptchaSettings,
+  RecaptchaModule,
+} from "ng-recaptcha";
+import {
+  NgxGoogleAnalyticsModule,
+  NgxGoogleAnalyticsRouterModule,
+} from "ngx-google-analytics";
 
 export function scrollToTop(scrollConfig: Scroll): [number, number] {
   return [0, 0];
@@ -32,6 +41,7 @@ export function scrollToTop(scrollConfig: Scroll): [number, number] {
     ToastModule,
     DragDropModule,
     ImageCropperModule,
+    RecaptchaModule,
     RouterModule.forRoot([], {
       scrollPositionRestoration: "enabled",
       anchorScrolling: "enabled",
@@ -39,10 +49,18 @@ export function scrollToTop(scrollConfig: Scroll): [number, number] {
 
       onSameUrlNavigation: "reload",
     }),
+    NgxGoogleAnalyticsModule.forRoot("G-PXV3MHG1XV"),
+    NgxGoogleAnalyticsRouterModule,
   ],
   providers: [
     LoaderService,
     { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
+    {
+      provide: RECAPTCHA_SETTINGS,
+      useValue: {
+        siteKey: "6LeXLS4qAAAAAHheIWL9TtNXPenIO3wn2GfXPQ4R", // Replace with your actual site key
+      } as RecaptchaSettings,
+    },
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],

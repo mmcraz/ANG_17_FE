@@ -89,11 +89,11 @@
         <span (click)="editPanel.toggle($event); openEditPanel()"
           ><i class="mb-3 pi pi-pencil text-2xl text-color-secondary"></i
         ></span>
-        <span (click)="generatePDF()"
+        <!-- <span (click)="generatePDF()"
           ><i
             class="mb-3 pi pi-download text-2xl text-color-secondary cursor-pointer"
           ></i
-        ></span>
+        ></span> -->
       </div>
       <div
         class="flex flex-column justify-content-center align-items-center mt-4 relative"
@@ -241,11 +241,11 @@
         <span (click)="editPanel.toggle($event); openEditPanel()"
           ><i class="mb-3 pi pi-pencil text-2xl text-color-secondary"></i
         ></span>
-        <span (click)="generatePDF()"
+        <!-- <span (click)="generatePDF()"
           ><i
             class="mb-3 pi pi-download text-2xl text-color-secondary cursor-pointer"
           ></i
-        ></span>
+        ></span> -->
       </div>
       <div
         class="flex flex-column justify-content-center align-items-center mt-4 relative print-as-pdf"
@@ -440,11 +440,11 @@
     <button (click)="hidden = !hidden">{{ hidden ? "Show" : "Hide" }}</button>
     <br /> -->
     <div class="flex justify-content-end">
-      <span (click)="generatePDF()"
+      <!-- <span (click)="generatePDF()"
         ><i
           class="mb-3 pi pi-download text-2xl text-color-secondary cursor-pointer absolute right-20 animate__animated animate__bounce animate__slower animate__infinite infinite"
         ></i
-      ></span>
+      ></span> -->
     </div>
     <div class="relative h-300 grid-center mt-8">
       @if(rotateMugDeg == 2) {
@@ -565,11 +565,11 @@
 
   <div id="bt" *ngIf="selectedProduct.code == 'BT'" class="text-center mt-10">
     <div class="flex justify-content-end">
-      <span (click)="generatePDF()"
+      <!-- <span (click)="generatePDF()"
         ><i
           class="mb-3 pi pi-download text-2xl text-color-secondary absolute cursor-pointer right-20 animate__animated animate__bounce animate__slower animate__infinite infinite"
         ></i
-      ></span>
+      ></span> -->
     </div>
     <div class="relative grid-center mt-8">
       <div class="cropped">
@@ -699,11 +699,11 @@
   </div>
   <div id="mp" *ngIf="selectedProduct.code == 'MP'" class="text-center mt-10">
     <div class="flex justify-content-end">
-      <span (click)="generatePDF()"
+      <!-- <span (click)="generatePDF()"
         ><i
           class="mb-3 pi pi-download text-2xl text-color-secondary absolute cursor-pointer right-20 animate__animated animate__bounce animate__slower animate__infinite infinite"
         ></i
-      ></span>
+      ></span> -->
     </div>
     <div class="relative grid-center mt-8">
       <div class="cropped">
