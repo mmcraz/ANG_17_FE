@@ -118,7 +118,7 @@ export class DashboardComponent implements OnInit {
     // { name: "Caps", code: "CS" },
     // { name: "Stickers/Labels", code: "CS" },
     { name: "Mouse Pads", code: "MP" },
-    // { name: "Photo Frames", code: "CS" },
+    { name: "Photo Frame", code: "PF" },
     // { name: "Gaphic Designing", code: "MG" },
     // { name: "Photo Editing", code: "MG" },
     // { name: "Logo Designing", code: "MG" },
@@ -455,48 +455,31 @@ export class DashboardComponent implements OnInit {
         console.error("Error sending image:", error);
       }
     );
-    this.whatsappOrder =
-      "*" +
-      encodeURIComponent(this.order.product) +
-      "*%0a" +
-      "%20Color%20" +
-      "*" +
-      encodeURIComponent(this.order.pcolor) +
-      "*%0a" +
-      "%20Size%20" +
-      "*" +
-      encodeURIComponent(this.order.size) +
-      "*%0a" +
-      "%20Template%20" +
-      "*" +
-      encodeURIComponent(this.order.template) +
-      "*%0a" +
-      "%20Text1%20" +
-      "*" +
-      encodeURIComponent(this.order.text1) +
-      "*%0a" +
-      "%20Text2%20" +
-      "*" +
-      encodeURIComponent(this.order.text2) +
-      "*%0a" +
-      "%20Pattern%20" +
-      "*" +
-      encodeURIComponent(this.order.pattern) +
-      "*%0a" +
-      "%20Price%20" +
-      "*" +
-      "The latest offers and prices will be shared shortly " +
-      "*%0a" +
-      "%20Settings%20" +
-      "*" +
-      encodeURIComponent(
+    this.whatsappOrder = `
+*${encodeURIComponent(this.order.product)}*
+${
+  this.selectedProduct === "HD" ||
+  this.selectedProduct === "TS" ||
+  this.selectedProduct === "TS"
+    ? `
+%20Color%20*${encodeURIComponent(this.order.pcolor)}*
+%20Size%20*${encodeURIComponent(this.order.size)}*
+%20Template%20*${encodeURIComponent(this.order.template)}*
+%20Text1%20*${encodeURIComponent(this.order.text1)}*
+%20Text2%20*${encodeURIComponent(this.order.text2)}*
+%20Settings%20*${encodeURIComponent(
         this.order.settings.f +
           "/" +
           this.order.settings.fs +
           "/" +
           this.order.settings.ls
-      ) +
-      "*";
+      )}*
+
+`
+    : ""
+}%20Pattern%20*${encodeURIComponent(this.order.pattern)}*
+*The latest offers and prices will be shared for the selected item shortly*
+`;
 
     this.whatsapp =
       "https://wa.me/9566221663?text= Please Confirm Your Order! %0a%0a" +
@@ -522,6 +505,11 @@ export class DashboardComponent implements OnInit {
     if (this.selectedProduct.code == "MP") {
       this.order.pcolor = "white";
       this.aspectRatio = 9 / 9;
+    }
+
+    if (this.selectedProduct.code == "PF") {
+      this.order.pcolor = "white";
+      this.aspectRatio = 1 / 1.5;
     }
 
     this.resetSettings();
@@ -562,6 +550,14 @@ export class DashboardComponent implements OnInit {
         this.order.price = this.pricing.offerPrice;
         const element =
           document.getElementById("mp") || document.getElementById("mp");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      } else if (e.value.code == "PF") {
+        this.pricing = Pricings[2];
+        this.order.price = this.pricing.offerPrice;
+        const element =
+          document.getElementById("pf") || document.getElementById("pf");
         if (element) {
           element.scrollIntoView({ behavior: "smooth", block: "start" });
         }
@@ -723,7 +719,7 @@ export class DashboardComponent implements OnInit {
 
     this.uploadImage = event.blob;
     if (event.objectUrl) {
-      this.order.pattern = event.objectUrl;
+      this.order.pattern = "Custom"; //event.objectUrl
     }
   }
 

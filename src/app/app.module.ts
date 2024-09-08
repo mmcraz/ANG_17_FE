@@ -23,13 +23,17 @@ import {
   NgxGoogleAnalyticsModule,
   NgxGoogleAnalyticsRouterModule,
 } from "ngx-google-analytics";
+import { AboutUsComponent } from './modules/about-us/about-us.component';
+import { ContactUsComponent } from './modules/contact-us/contact-us.component';
+import { FashionComponent } from './modules/fashion/fashion.component';
+import { GiftsComponent } from './modules/gifts/gifts.component';
 
 export function scrollToTop(scrollConfig: Scroll): [number, number] {
   return [0, 0];
 }
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent],
+  declarations: [AppComponent, LoginComponent, AboutUsComponent, ContactUsComponent, FashionComponent, GiftsComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

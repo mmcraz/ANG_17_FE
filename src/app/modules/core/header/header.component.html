@@ -1,75 +1,121 @@
-<header class="header">
-  <div class="logo">
-    <h2 style="margin: 0">
-      <a routerLink="/app/home" class="no-underline letter-space-4">mmcraz</a>
-    </h2>
-  </div>
-  <div
-    class="block flex gap-2 text-color-secondary"
-    *ngIf="!authService.isLoggedInObser()"
-  >
-    <a
-      href="javascript:void(0)"
-      class="text-xs no-underline p-3"
-      (click)="gotoGallery()"
-      routerLink="/app/list"
-      routerLinkActive="active"
-      >Gallery</a
-    >
-    <a
-      href="javascript:void(0)"
-      class="text-xs no-underline p-3"
-      (click)="gotoHome()"
-      routerLink="/app/home"
-      routerLinkActive="active"
-      >Home</a
-    >
-    <p-button
-      label="Login"
-      severity="secondary"
-      [outlined]="true"
-      (click)="signIn()"
-    ></p-button>
-  </div>
-  <div
-    class="col-6 text-right justify-content-center align-items-center"
-    *ngIf="authService.isLoggedInObser()"
-  >
-    <div class="flex justify-content-end align-items-center">
+<header class="header-container">
+  <div class="header-content flex align-items-center justify-content-between">
+    <!-- Logo on the left -->
+    <div class="logo">
       <a
-        href="javascript:void(0)"
-        class="text-xs no-underline p-3"
-        (click)="gotoGallery()"
-        routerLink="/app/list"
-        routerLinkActive="active"
-        >Gallery</a
-      >
-      <a
-        href="javascript:void(0)"
-        class="text-xs no-underline p-3"
-        (click)="gotoHome()"
         routerLink="/app/home"
-        routerLinkActive="active"
-        >Home</a
+        class="no-underline letter-space-4 text-2xl font-bold"
+        >mmcraz</a
       >
-
-      <div class="flex" (click)="op.toggle($event)">
-        <span class="gg-profile"></span>
-        <strong class="user-name">{{ userInfo.firstName }} </strong>
-        <i class="pi pi-angle-down text-color-secondary mt-1 ml-2"></i>
-      </div>
     </div>
-    <div></div>
+
+    <!-- Menu on the right -->
+    <nav class="menu flex align-items-center gap-4">
+      <div
+        class="text-right justify-content-center align-items-center"
+        *ngIf="authService.isLoggedInObser()"
+      >
+        <div class="flex justify-content-end align-items-center">
+          <div class="flex" (click)="op.toggle($event)">
+            <span class="gg-profile"></span>
+            <strong class="user-name">{{ userInfo.firstName }} </strong>
+            <i class="pi pi-angle-down text-color-secondary mt-1 ml-2"></i>
+          </div>
+        </div>
+        <div></div>
+      </div>
+      <div
+        class="text-right justify-content-center align-items-center"
+        *ngIf="!authService.isLoggedInObser()"
+      >
+        <p-button
+          label="Login"
+          severity="secondary"
+          [outlined]="true"
+          (click)="signIn()"
+        ></p-button>
+      </div>
+
+      <ul
+        class="menu-options flex"
+        [ngClass]="{ 'menu-slide': isMenuOpen }"
+        id="menuOptions"
+      >
+        <li class="close-icon" (click)="closeMenu()">
+          <span>&times;</span>
+        </li>
+        <li>
+          <a
+            href="javascript:void(0);"
+            (click)="gotoHome()"
+            routerLink="/app/home"
+            routerLinkActive="active"
+            >Home</a
+          >
+        </li>
+        <li>
+          <a
+            href="javascript:void(0);"
+            (click)="closeMenu()"
+            routerLink="/app/fashion"
+            routerLinkActive="active"
+            >Fashion</a
+          >
+        </li>
+        <li>
+          <a
+            href="javascript:void(0);"
+            (click)="closeMenu()"
+            routerLink="/app/gifts"
+            routerLinkActive="active"
+            >Gifts</a
+          >
+        </li>
+        <li>
+          <a
+            href="javascript:void(0);"
+            (click)="gotoGallery()"
+            routerLink="/app/list"
+            routerLinkActive="active"
+            >Gallery</a
+          >
+        </li>
+        <li>
+          <a
+            href="javascript:void(0);"
+            routerLink="/app/about-us"
+            routerLinkActive="active"
+            (click)="closeMenu()"
+            >About</a
+          >
+        </li>
+        <li>
+          <a
+            href="javascript:void(0);"
+            (click)="closeMenu()"
+            routerLink="/app/contact-us"
+            routerLinkActive="active"
+            >Contact</a
+          >
+        </li>
+      </ul>
+      <!-- Hamburger menu for small screens -->
+      <div class="hamburger" (click)="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
   </div>
 </header>
 
 <p-overlayPanel #op>
   <ng-template pTemplate="content">
     <div class="profile">
-      <span (click)="viewOrders()" class="text-xs mr-4 cursor-pointer"
-        >Your Orders</span
-      >
-      <span (click)="signOut()" class="text-xs cursor-pointer">Sign Out</span>
+      <div (click)="viewOrders()" class="text-xs mb-3 cursor-pointer">
+        Your Orders
+      </div>
+      <div (click)="signOut()" class="text-xs cursor-pointer">Sign Out</div>
       @if(userInfo.email === "mmc@gmail.com") {
       <hr />
       <div

@@ -198,11 +198,24 @@
       mask-image: url("../../../../../assets/img/mousepad/mask2.png"); /* Standard syntax */
     }
   }
+  &.pf {
+    width: 279px !important;
+    img {
+      top: 0px !important;
+      width: 100%;
+      left: calc(100% - 279px) !important;
+      mask-size: 100% !important;
+      height: 395px !important;
+      -webkit-mask-image: url("../../../../../assets/img/photoframes/photo.jpg"); /* Use the mask image */
+      mask-image: url("../../../../../assets/img/photoframes/photo.jpg"); /* Standard syntax */
+    }
+  }
 }
 
 .mask.mug + img,
 .mask.bottle + img,
-.mask.mp + img {
+.mask.mp + img,
+.mask.pf + img {
   position: relative;
   top: 0;
 }
@@ -256,7 +269,7 @@ input[type="file"] {
 .cropped {
   position: absolute;
   right: 0;
-  opacity: 0.2;
+  opacity: 0;
   left: 0;
   z-index: -1;
   img {

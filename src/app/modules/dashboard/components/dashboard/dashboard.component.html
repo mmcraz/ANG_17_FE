@@ -538,7 +538,6 @@
         [allowMoveImage]="allowMoveImage"
         [hidden]="hidden"
         imageAltText="Alternative image text"
-        backgroundColor="red"
         output="blob"
         format="png"
         (imageCropped)="imageCropped($event)"
@@ -673,7 +672,6 @@
         [allowMoveImage]="allowMoveImage"
         [hidden]="hidden"
         imageAltText="Alternative image text"
-        backgroundColor="red"
         output="blob"
         format="png"
         (imageCropped)="imageCropped($event)"
@@ -792,7 +790,82 @@
         [allowMoveImage]="allowMoveImage"
         [hidden]="hidden"
         imageAltText="Alternative image text"
-        backgroundColor="red"
+        output="blob"
+        format="png"
+        (imageCropped)="imageCropped($event)"
+        (imageLoaded)="imageLoaded()"
+        (cropperReady)="cropperReady($event)"
+        (loadImageFailed)="loadImageFailed()"
+      ></image-cropper>
+      <div *ngIf="loading" class="loader">Loading...</div>
+      <div
+        class="flex flex-column justify-content-center align-items-center mt-4 relative print-as-pdf"
+      >
+        <div class="relative">
+          <button
+            pButton
+            pRipple
+            label="Buy Now"
+            (click)="op.toggle($event); setOrder()"
+            class="p-button-primary w-full text-center mt-5 block"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="pf" *ngIf="selectedProduct.code == 'PF'" class="text-center mt-10">
+    <div class="relative grid-center mt-8">
+      <div class="cropped">
+        <div>
+          <img
+            class="cropped-img"
+            [src]="croppedImage"
+            [style.border]="croppedImage ? '1px solid black' : 'none'"
+          />
+        </div>
+      </div>
+
+      <div #printAsPdfMouse style="border: 25px solid #000">
+        <div class="mask pf">
+          @if(croppedImage) {
+          <img
+            [src]="croppedImage"
+            [style.border]="croppedImage ? '1px solid black' : 'none'"
+          />
+          }
+        </div>
+        <img
+          class="mug-placeholder"
+          src="../../../../../assets/img/photoframes/photo.jpg"
+          height="391"
+        />
+      </div>
+    </div>
+
+    <div class="file-input-container mb-3 relative mt-3">
+      <label for="file-upload" class="custom-file-upload"> Upload Photo </label>
+      <input
+        id="file-upload"
+        type="file"
+        accept="image/*"
+        (change)="fileChangeEvent($event)"
+      />
+    </div>
+
+    <div class="cropper-wrapper">
+      <image-cropper
+        [imageChangedEvent]="imageChangedEvent"
+        [imageURL]="imageURL"
+        [maintainAspectRatio]="true"
+        [containWithinAspectRatio]="containWithinAspectRatio"
+        [cropperMinWidth]="128"
+        [aspectRatio]="aspectRatio"
+        [onlyScaleDown]="true"
+        [canvasRotation]="canvasRotation"
+        [style.display]="showCropper ? null : 'none'"
+        [allowMoveImage]="allowMoveImage"
+        [hidden]="hidden"
+        imageAltText="Alternative image text"
         output="blob"
         format="png"
         (imageCropped)="imageCropped($event)"

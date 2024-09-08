@@ -1,17 +1,3 @@
-.header {
-  min-height: 69px;
-  color: #333;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  background: #e8a722;
-  box-shadow: 0 0 7px #000;
-  z-index: 9;
-}
-
 .logo img {
   height: 50px;
 }
@@ -69,4 +55,96 @@ a.active {
 
 .letter-space-4 {
   letter-spacing: 4px;
+}
+
+/* Header container styles */
+.header-container {
+  background: #1f1f1f;
+  color: #e8a722;
+  padding: 15px 20px;
+  position: relative; /* Relative positioning for the slide menu */
+  z-index: 10;
+  .logo a {
+    color: #e8a722;
+  }
+}
+
+.profile {
+  width: 100px;
+}
+/* Menu styles */
+.menu-options {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  background-color: #333;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 100;
+  display: none; /* Initially hidden */
+}
+
+.menu-options.menu-slide {
+  display: flex;
+  transform: translateX(0); /* Slide the menu into view */
+}
+
+.menu-options li {
+  margin: 20px 0;
+}
+
+.menu-options a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 15px;
+  font-size: 1.5em; /* Large font size for desktop and mobile */
+  transition: background-color 0.3s ease;
+}
+
+.menu-options a:hover {
+  background-color: #555;
+  border-radius: 5px;
+}
+
+/* Hamburger menu (visible on all screens now) */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  background-color: #fff;
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+}
+
+/* Close Icon styles */
+.close-icon {
+  display: block;
+  position: absolute;
+  top: 10px;
+  right: 20px;
+}
+
+.close-icon span {
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+}
+
+.close-icon span:hover {
+  color: #ff6b6b; /* Change color on hover */
 }

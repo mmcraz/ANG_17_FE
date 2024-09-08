@@ -1,16 +1,17 @@
-import { Component } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { AuthService } from "../services/auth.service";
-import { Router } from "@angular/router";
-import { Observable, Subscription } from "rxjs";
+import { NavigationEnd, Router } from "@angular/router";
+import { filter, Observable, Subscription } from "rxjs";
 import { CookieService } from "../services/cookie.service";
 import { StorageService } from "../services/storage.service";
+import { OverlayPanel } from "primeng/overlaypanel";
 
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
   styleUrl: "./header.component.scss",
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   userInfo: any = [
     {
       firstName: "",
@@ -19,6 +20,7 @@ export class HeaderComponent {
   isLoggedIn$!: Observable<boolean>;
 
   storageEvent: { key: string; newValue: string | null } | null = null;
+  @ViewChild("op") op!: OverlayPanel;
   private storageSubscription: Subscription;
 
   constructor(
@@ -51,6 +53,25 @@ export class HeaderComponent {
     );
   }
 
+  ngOnInit(): void {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.op.hide();
+      });
+  }
+  isMenuOpen = false;
+
+  toggleMenu() {
+    this.op.hide();
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.op.hide();
+    this.isMenuOpen = false;
+  }
+
   signIn() {
     this.router.navigate(["app/login"]);
   }
@@ -60,6 +81,7 @@ export class HeaderComponent {
   }
 
   gotoHome() {
+    this.closeMenu();
     this.router.navigate(["app/home"]);
   }
 
@@ -70,6 +92,7 @@ export class HeaderComponent {
     this.router.navigate(["app/home/newOrders"]);
   }
   gotoGallery() {
+    this.closeMenu();
     this.router.navigate(["app/list"]);
   }
   ngOnDestroy() {
